@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -41,7 +41,9 @@ class TelemetryConfig(BaseModel):
     """Telemetry configuration."""
 
     enabled: bool = Field(default=False, description="Enable telemetry")
-    anonymous_usage: bool = Field(default=True, description="Collect anonymous usage data")
+    anonymous_usage: bool = Field(
+        default=True, description="Collect anonymous usage data"
+    )
     crash_reports: bool = Field(default=True, description="Send crash reports")
 
 
@@ -58,10 +60,14 @@ class Settings(BaseSettings):
     # API Keys
     openai_api_key: Optional[str] = Field(default=None, description="OpenAI API key")
     imgbb_api_key: Optional[str] = Field(default=None, description="ImgBB API key")
-    telegram_bot_token: Optional[str] = Field(default=None, description="Telegram bot token")
+    telegram_bot_token: Optional[str] = Field(
+        default=None, description="Telegram bot token"
+    )
 
     # External tools
-    ffmpeg_path: Optional[str] = Field(default=None, description="Path to FFmpeg binary")
+    ffmpeg_path: Optional[str] = Field(
+        default=None, description="Path to FFmpeg binary"
+    )
 
     # UI Settings
     theme: ThemeSettings = Field(default_factory=ThemeSettings)
@@ -70,7 +76,9 @@ class Settings(BaseSettings):
     telemetry: TelemetryConfig = Field(default_factory=TelemetryConfig)
 
     # Plugin settings
-    plugin_settings: Dict[str, Any] = Field(default_factory=dict, description="Plugin-specific settings")
+    plugin_settings: dict[str, Any] = Field(
+        default_factory=dict, description="Plugin-specific settings"
+    )
 
     def save_to_file(self, file_path: Optional[Path] = None) -> None:
         """Save settings to a JSON file."""
@@ -101,13 +109,15 @@ class Settings(BaseSettings):
             return cls()
 
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 data = json.load(f)
             return cls(**data)
         except Exception:
             return cls()
 
-    def get_plugin_setting(self, plugin_name: str, key: str, default: Any = None) -> Any:
+    def get_plugin_setting(
+        self, plugin_name: str, key: str, default: Any = None
+    ) -> Any:
         """Get a plugin-specific setting."""
         return self.plugin_settings.get(plugin_name, {}).get(key, default)
 

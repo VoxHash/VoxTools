@@ -5,12 +5,12 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 import toml
 import yaml
-from rich.console import Console
 from PyQt6.QtWidgets import QWidget
+from rich.console import Console
 from textual.app import App
 
 from vox_tools.core.plugin import Plugin
@@ -20,7 +20,9 @@ class DevToolsPlugin(Plugin):
     """Plugin for developer tools and utilities."""
 
     name = "devtools"
-    summary = "JSON/YAML/TOML formatters, regex tester, .env parser, and README generators"
+    summary = (
+        "JSON/YAML/TOML formatters, regex tester, .env parser, and README generators"
+    )
     version = "1.0.0"
 
     def run_cli(self, console: Console, **kwargs: Any) -> None:
@@ -47,7 +49,7 @@ class DevToolsPlugin(Plugin):
     def format_json(self, file_path: Path, indent: int = 2) -> str:
         """Format JSON file."""
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 data = json.load(f)
             return json.dumps(data, indent=indent, ensure_ascii=False)
         except Exception as e:
@@ -56,7 +58,7 @@ class DevToolsPlugin(Plugin):
     def format_yaml(self, file_path: Path) -> str:
         """Format YAML file."""
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 data = yaml.safe_load(f)
             return yaml.dump(data, default_flow_style=False, sort_keys=False)
         except Exception as e:
@@ -65,22 +67,22 @@ class DevToolsPlugin(Plugin):
     def format_toml(self, file_path: Path) -> str:
         """Format TOML file."""
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 data = toml.load(f)
             return toml.dumps(data)
         except Exception as e:
             return f"Error formatting TOML: {e}"
 
-    def validate_json(self, file_path: Path) -> Dict[str, Any]:
+    def validate_json(self, file_path: Path) -> dict[str, Any]:
         """Validate JSON file."""
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 json.load(f)
             return {"valid": True, "error": None}
         except Exception as e:
             return {"valid": False, "error": str(e)}
 
-    def test_regex(self, pattern: str, text: str) -> Dict[str, Any]:
+    def test_regex(self, pattern: str, text: str) -> dict[str, Any]:
         """Test regex pattern against text."""
         try:
             regex = re.compile(pattern)
@@ -89,29 +91,24 @@ class DevToolsPlugin(Plugin):
                 "valid": True,
                 "matches": matches,
                 "match_count": len(matches),
-                "error": None
+                "error": None,
             }
         except Exception as e:
-            return {
-                "valid": False,
-                "matches": [],
-                "match_count": 0,
-                "error": str(e)
-            }
+            return {"valid": False, "matches": [], "match_count": 0, "error": str(e)}
 
-    def parse_env_file(self, file_path: Path) -> Dict[str, str]:
+    def parse_env_file(self, file_path: Path) -> dict[str, str]:
         """Parse .env file."""
         env_vars = {}
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
-                for line_num, line in enumerate(f, 1):
+            with open(file_path, encoding="utf-8") as f:
+                for _line_num, line in enumerate(f, 1):
                     line = line.strip()
                     if line and not line.startswith("#"):
                         if "=" in line:
                             key, value = line.split("=", 1)
                             env_vars[key.strip()] = value.strip()
                         # Silently skip invalid lines (no warning needed for parsing)
-        except Exception as e:
+        except Exception:
             # Return empty dict on error - caller can handle logging if needed
             pass
         return env_vars
@@ -121,9 +118,9 @@ class DevToolsPlugin(Plugin):
         badges = [
             f"[![CI](https://github.com/{github_user}/{project_name}/workflows/CI/badge.svg)](https://github.com/{github_user}/{project_name}/actions)",
             f"[![Coverage](https://codecov.io/gh/{github_user}/{project_name}/branch/main/graph/badge.svg)](https://codecov.io/gh/{github_user}/{project_name})",
-            f"[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)",
-            f"[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)",
-            f"[![Code style: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)",
+            "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)",
+            "[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)",
+            "[![Code style: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)",
         ]
         return "\n".join(badges)
 
@@ -132,7 +129,7 @@ class DevToolsPlugin(Plugin):
         directory: Path,
         commit_message: str = "Update tracked files",
         auto_push: bool = False,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Track and commit all git changes in a repository."""
         import subprocess
 
@@ -198,7 +195,7 @@ class DevToolsPlugin(Plugin):
 
                 if local_commits_result.stdout.strip() and auto_push:
                     # Push to remote
-                    push_result = subprocess.run(
+                    subprocess.run(
                         ["git", "push", "origin", "main"],
                         cwd=directory,
                         check=True,
@@ -213,11 +210,13 @@ class DevToolsPlugin(Plugin):
             result["success"] = True
 
         except subprocess.CalledProcessError as e:
-            result["errors"].append(f"Git command failed: {e.stderr.decode() if e.stderr else str(e)}")
+            result["errors"].append(
+                f"Git command failed: {e.stderr.decode() if e.stderr else str(e)}"
+            )
             result["message"] = "Failed to track git changes"
         except Exception as e:
             result["errors"].append(str(e))
-            result["message"] = f"Error: {str(e)}"
+            result["message"] = f"Error: {e!s}"
 
         return result
 

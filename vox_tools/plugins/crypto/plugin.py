@@ -10,8 +10,8 @@ import uuid
 from typing import Any, Optional
 
 import jwt
-from rich.console import Console
 from PyQt6.QtWidgets import QWidget
+from rich.console import Console
 from textual.app import App
 
 from vox_tools.core.plugin import Plugin
@@ -53,9 +53,7 @@ class CryptoPlugin(Plugin):
     def generate_hmac(self, text: str, key: str, algorithm: str = "sha256") -> str:
         """Generate HMAC for text with key."""
         return hmac.new(
-            key.encode("utf-8"),
-            text.encode("utf-8"),
-            algorithm
+            key.encode("utf-8"), text.encode("utf-8"), algorithm
         ).hexdigest()
 
     def decode_jwt(self, token: str) -> dict:
@@ -73,6 +71,7 @@ class CryptoPlugin(Plugin):
         """Generate a ULID."""
         try:
             import ulid
+
             return str(ulid.new())
         except ImportError:
             return "ULID generation requires ulid-py package"

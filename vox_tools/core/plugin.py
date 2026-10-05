@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import importlib
 import pkgutil
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Protocol, Type, runtime_checkable
+from typing import Any, Optional, Protocol, runtime_checkable
 
 from rich.console import Console
 
@@ -54,47 +54,51 @@ class PluginRegistry:
 
     def __init__(self) -> None:
         """Initialize the plugin registry."""
-        self._plugins: Dict[str, Plugin] = {}
+        self._plugins: dict[str, Plugin] = {}
         self._console = Console()
 
     def register(self, plugin: Plugin) -> None:
         """Register a plugin."""
         if plugin.name in self._plugins:
-            self._console.print(f"[yellow]Warning: Plugin '{plugin.name}' is already registered[/yellow]")
+            self._console.print(
+                f"[yellow]Warning: Plugin '{plugin.name}' is already registered[/yellow]"
+            )
             return
 
         self._plugins[plugin.name] = plugin
-        self._console.print(f"[green]Registered plugin: {plugin.name} v{plugin.version}[/green]")
+        self._console.print(
+            f"[green]Registered plugin: {plugin.name} v{plugin.version}[/green]"
+        )
 
     def get_plugin(self, name: str) -> Optional[Plugin]:
         """Get a plugin by name."""
         return self._plugins.get(name)
 
-    def list_plugins(self) -> List[Plugin]:
+    def list_plugins(self) -> list[Plugin]:
         """List all registered plugins."""
         return list(self._plugins.values())
 
     def discover_plugins(self) -> None:
         """Auto-discover and register plugins from the plugins package."""
         plugins_package = "vox_tools.plugins"
-        
+
         try:
             package = importlib.import_module(plugins_package)
             package_path = Path(package.__file__).parent  # type: ignore
-            
-            for finder, name, ispkg in pkgutil.iter_modules([str(package_path)]):
+
+            for _finder, name, ispkg in pkgutil.iter_modules([str(package_path)]):
                 if ispkg:
                     module_name = f"{plugins_package}.{name}.plugin"
                     try:
                         module = importlib.import_module(module_name)
-                        
+
                         # First, check for a plugin instance (most common pattern)
                         if hasattr(module, "plugin"):
-                            plugin_instance = getattr(module, "plugin")
+                            plugin_instance = module.plugin
                             if isinstance(plugin_instance, Plugin):
                                 self.register(plugin_instance)
                                 continue
-                        
+
                         # Fallback: Look for plugin classes
                         for attr_name in dir(module):
                             attr = getattr(module, attr_name)
@@ -111,17 +115,25 @@ class PluginRegistry:
                                     plugin_instance = attr()
                                     if isinstance(plugin_instance, Plugin):
                                         self.register(plugin_instance)
-                                        self._console.print(f"Registered plugin: {plugin_instance.name} v{plugin_instance.version}")
+                                        self._console.print(
+                                            f"Registered plugin: {plugin_instance.name} v{plugin_instance.version}"
+                                        )
                                         break  # Only register one plugin per module
                                 except Exception as e:
-                                    self._console.print(f"[red]Failed to instantiate plugin {attr_name}: {e}[/red]")
-                                    
+                                    self._console.print(
+                                        f"[red]Failed to instantiate plugin {attr_name}: {e}[/red]"
+                                    )
+
                     except ImportError as e:
                         # Silently skip plugins with missing optional dependencies
-                        self._console.print(f"[yellow]Skipping plugin {module_name}: {e}[/yellow]")
+                        self._console.print(
+                            f"[yellow]Skipping plugin {module_name}: {e}[/yellow]"
+                        )
                     except Exception as e:
-                        self._console.print(f"[red]Failed to import plugin module {module_name}: {e}[/red]")
-                        
+                        self._console.print(
+                            f"[red]Failed to import plugin module {module_name}: {e}[/red]"
+                        )
+
         except Exception as e:
             self._console.print(f"[red]Failed to discover plugins: {e}[/red]")
 

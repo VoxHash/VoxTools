@@ -6,7 +6,7 @@ import json
 import os
 import platform
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Optional
 
 from PyQt6.QtCore import QSettings
 from PyQt6.QtGui import QPalette
@@ -30,7 +30,10 @@ class ThemeManager:
         if system == "windows":
             try:
                 # Check Windows registry for theme preference
-                settings = QSettings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", QSettings.Format.NativeFormat)
+                settings = QSettings(
+                    "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+                    QSettings.Format.NativeFormat,
+                )
                 apps_use_light_theme = settings.value("AppsUseLightTheme", 1, type=int)
                 return "light" if apps_use_light_theme else "dark"
             except Exception:
@@ -39,7 +42,11 @@ class ThemeManager:
         elif system == "darwin":  # macOS
             try:
                 # Check macOS appearance setting
-                result = os.popen("defaults read -g AppleInterfaceStyle 2>/dev/null").read().strip()
+                result = (
+                    os.popen("defaults read -g AppleInterfaceStyle 2>/dev/null")
+                    .read()
+                    .strip()
+                )
                 return "dark" if result == "Dark" else "light"
             except Exception:
                 return "light"
@@ -50,18 +57,21 @@ class ThemeManager:
                 gtk_theme = os.environ.get("GTK_THEME", "").lower()
                 if "dark" in gtk_theme:
                     return "dark"
-                
+
                 # Check for dark mode environment variables
-                if any(os.environ.get(var, "").lower() in ["1", "true", "yes"] for var in ["DARK_MODE", "DARK_THEME"]):
+                if any(
+                    os.environ.get(var, "").lower() in ["1", "true", "yes"]
+                    for var in ["DARK_MODE", "DARK_THEME"]
+                ):
                     return "dark"
-                    
+
                 return "light"
             except Exception:
                 return "light"
 
         return "light"
 
-    def get_theme_colors(self, theme: str) -> Dict[str, str]:
+    def get_theme_colors(self, theme: str) -> dict[str, str]:
         """Get color palette for a theme."""
         if theme == "system":
             theme = self.detect_system_theme()
@@ -81,26 +91,26 @@ class ThemeManager:
                 "error": "#ef4444",
                 "info": "#3b82f6",
             }
-        else:  # light theme
-            return {
-                "background": "#ffffff",
-                "surface": "#f8f9fa",
-                "primary": "#7C3AED",
-                "secondary": "#06B6D4",
-                "accent": "#7C3AED",
-                "text": "#1f2937",
-                "text_secondary": "#6b7280",
-                "border": "#e5e7eb",
-                "success": "#10b981",
-                "warning": "#f59e0b",
-                "error": "#ef4444",
-                "info": "#3b82f6",
-            }
+        # light theme
+        return {
+            "background": "#ffffff",
+            "surface": "#f8f9fa",
+            "primary": "#7C3AED",
+            "secondary": "#06B6D4",
+            "accent": "#7C3AED",
+            "text": "#1f2937",
+            "text_secondary": "#6b7280",
+            "border": "#e5e7eb",
+            "success": "#10b981",
+            "warning": "#f59e0b",
+            "error": "#ef4444",
+            "info": "#3b82f6",
+        }
 
     def get_qss_stylesheet(self, theme: str) -> str:
         """Get QSS stylesheet for PyQt6."""
         colors = self.get_theme_colors(theme)
-        
+
         return f"""
         /* Main Window */
         QMainWindow {{
@@ -240,7 +250,7 @@ class ThemeManager:
         """Save the current theme to file."""
         self._current_theme = theme
         theme_data = {"theme": theme}
-        
+
         with open(self.theme_file, "w", encoding="utf-8") as f:
             json.dump(theme_data, f, indent=2)
 
@@ -250,7 +260,7 @@ class ThemeManager:
             return "system"
 
         try:
-            with open(self.theme_file, "r", encoding="utf-8") as f:
+            with open(self.theme_file, encoding="utf-8") as f:
                 theme_data = json.load(f)
             return theme_data.get("theme", "system")
         except Exception:
@@ -267,11 +277,11 @@ class ThemeManager:
 
         stylesheet = self.get_qss_stylesheet(theme)
         app.setStyleSheet(stylesheet)
-        
+
         # Set application palette for better integration
         palette = QPalette()
         colors = self.get_theme_colors(theme)
-        
+
         if theme == "dark":
             palette.setColor(QPalette.ColorRole.Window, colors["background"])
             palette.setColor(QPalette.ColorRole.WindowText, colors["text"])

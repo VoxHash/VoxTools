@@ -3,10 +3,8 @@
 from __future__ import annotations
 
 from textual.app import App, ComposeResult
-from textual.containers import Container, Horizontal, Vertical
-from textual.reactive import reactive
+from textual.containers import Container
 from textual.widgets import Button, Footer, Header, Static, Tree
-from textual.widgets.tree import TreeNode
 
 from vox_tools.core.plugin import registry
 from vox_tools.core.settings import Settings
@@ -16,7 +14,9 @@ from vox_tools.core.theme import ThemeManager
 class PluginTile(Static):
     """A tile widget for displaying plugin information."""
 
-    def __init__(self, plugin_name: str, plugin_summary: str, plugin_version: str) -> None:
+    def __init__(
+        self, plugin_name: str, plugin_summary: str, plugin_version: str
+    ) -> None:
         """Initialize the plugin tile."""
         super().__init__()
         self.plugin_name = plugin_name
@@ -25,7 +25,9 @@ class PluginTile(Static):
 
     def compose(self) -> ComposeResult:
         """Create child widgets."""
-        yield Static(f"[bold blue]{self.plugin_name}[/bold blue] v{self.plugin_version}")
+        yield Static(
+            f"[bold blue]{self.plugin_name}[/bold blue] v{self.plugin_version}"
+        )
         yield Static(f"[dim]{self.plugin_summary}[/dim]")
         yield Button("Run", id=f"run-{self.plugin_name}")
 
@@ -107,15 +109,15 @@ class VoxToolsTUI(App):
     def compose(self) -> ComposeResult:
         """Create child widgets."""
         yield Header()
-        
+
         with Container(classes="main-container"):
             with Container(classes="sidebar"):
                 yield Tree("Plugins", id="plugin-tree")
-            
+
             with Container(classes="content"):
                 yield Static("Welcome to VoxTools TUI!", classes="welcome")
                 yield Container(id="plugin-grid", classes="plugin-grid")
-        
+
         yield Footer()
 
     def on_mount(self) -> None:
@@ -123,12 +125,12 @@ class VoxToolsTUI(App):
         # Discover and register plugins
         registry.discover_plugins()
         self.plugins = registry.list_plugins()
-        
+
         # Populate plugin tree
         plugin_tree = self.query_one("#plugin-tree", Tree)
         for plugin in self.plugins:
             plugin_tree.root.add(plugin.name, data=plugin)
-        
+
         # Create plugin tiles
         self.create_plugin_tiles()
 
@@ -136,7 +138,7 @@ class VoxToolsTUI(App):
         """Create tiles for all plugins."""
         plugin_grid = self.query_one("#plugin-grid", Container)
         plugin_grid.remove_children()
-        
+
         for plugin in self.plugins:
             tile = PluginTile(
                 plugin_name=plugin.name,

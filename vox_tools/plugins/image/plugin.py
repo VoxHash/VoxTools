@@ -35,7 +35,9 @@ class ImageGeneratorPlugin(Plugin):
     """Plugin for AI image generation using OpenAI DALL-E."""
 
     name = "image"
-    summary = "AI image generation using OpenAI DALL-E with customizable filters and styles"
+    summary = (
+        "AI image generation using OpenAI DALL-E with customizable filters and styles"
+    )
     version = "1.0.0"
 
     def __init__(self) -> None:
@@ -47,7 +49,7 @@ class ImageGeneratorPlugin(Plugin):
         """Load OpenAI API key from environment or config."""
         # Try environment variable first
         self.api_key = os.getenv("OPENAI_API_KEY")
-        
+
         # If not found, try to load from a config file
         if not self.api_key:
             config_path = Path.home() / ".voxtools" / "openai_key.txt"
@@ -61,21 +63,33 @@ class ImageGeneratorPlugin(Plugin):
         """Run the image generator plugin in CLI mode."""
         console.print("[bold blue]Image Generator Plugin[/bold blue]")
         console.print("\n[bold]Usage:[/bold]")
-        console.print("  voxtools image generate --prompt 'your prompt' [--filter FILTER] [--size SIZE]")
+        console.print(
+            "  voxtools image generate --prompt 'your prompt' [--filter FILTER] [--size SIZE]"
+        )
         console.print("\n[bold]Options:[/bold]")
         console.print("  --prompt, -p    : Image generation prompt (required)")
-        console.print("  --filter, -f    : Filter style (None, Anime, Cyberpunk) [default: None]")
+        console.print(
+            "  --filter, -f    : Filter style (None, Anime, Cyberpunk) [default: None]"
+        )
         console.print("  --size, -s      : Image size (256, 512, 1024) [default: 512]")
-        console.print("  --output, -o    : Output file path [default: generated_image.png]")
-        console.print("  --api-key, -k   : OpenAI API key (or set OPENAI_API_KEY env var)")
+        console.print(
+            "  --output, -o    : Output file path [default: generated_image.png]"
+        )
+        console.print(
+            "  --api-key, -k   : OpenAI API key (or set OPENAI_API_KEY env var)"
+        )
         console.print("\n[bold]Examples:[/bold]")
         console.print("  voxtools image generate -p 'a sunset over mountains'")
         console.print("  voxtools image generate -p 'a cat' -f Anime -s 1024")
-        
+
         if not openai:
-            console.print("\n[yellow]Warning:[/yellow] openai package not installed. Install with: pip install openai")
+            console.print(
+                "\n[yellow]Warning:[/yellow] openai package not installed. Install with: pip install openai"
+            )
         elif not self.api_key:
-            console.print("\n[yellow]Warning:[/yellow] OpenAI API key not found. Set OPENAI_API_KEY or use --api-key")
+            console.print(
+                "\n[yellow]Warning:[/yellow] OpenAI API key not found. Set OPENAI_API_KEY or use --api-key"
+            )
 
     def tui_view(self) -> Optional[App]:
         """Return a Textual app for TUI mode."""
@@ -94,7 +108,9 @@ class ImageGeneratorPlugin(Plugin):
     ) -> Optional[Image.Image]:
         """Generate an image using OpenAI DALL-E."""
         if not openai:
-            raise ImportError("openai package is required. Install with: pip install openai")
+            raise ImportError(
+                "openai package is required. Install with: pip install openai"
+            )
 
         # Use provided API key or fall back to instance key
         key = api_key or self.api_key
@@ -115,6 +131,7 @@ class ImageGeneratorPlugin(Plugin):
             # Use the newer OpenAI client API if available
             try:
                 from openai import OpenAI
+
                 client = OpenAI(api_key=key)
                 response = client.images.generate(
                     model="dall-e-2",
@@ -134,6 +151,7 @@ class ImageGeneratorPlugin(Plugin):
 
             # Download and convert to PIL Image
             import requests
+
             image_data = requests.get(image_url).content
             return Image.open(BytesIO(image_data))
 
@@ -212,7 +230,9 @@ class ImageGeneratorWidget(QWidget):
         self.image_label = QLabel()
         self.image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.image_label.setMinimumHeight(300)
-        self.image_label.setStyleSheet("border: 1px solid gray; background-color: #f0f0f0;")
+        self.image_label.setStyleSheet(
+            "border: 1px solid gray; background-color: #f0f0f0;"
+        )
         layout.addWidget(self.image_label)
 
         self.setLayout(layout)
@@ -229,7 +249,9 @@ class ImageGeneratorWidget(QWidget):
         if self.api_key_input:
             api_key = self.api_key_input.text().strip()
             if not api_key:
-                QMessageBox.warning(self, "API Key Required", "Please enter your OpenAI API key.")
+                QMessageBox.warning(
+                    self, "API Key Required", "Please enter your OpenAI API key."
+                )
                 return
 
         filter_type = self.filter_combo.currentText()
@@ -258,15 +280,17 @@ class ImageGeneratorWidget(QWidget):
                 )
                 pixmap = QPixmap.fromImage(q_image)
                 self.generated_image = pixmap
-                self.image_label.setPixmap(pixmap.scaled(
-                    self.image_label.size(),
-                    Qt.AspectRatioMode.KeepAspectRatio,
-                    Qt.TransformationMode.SmoothTransformation,
-                ))
+                self.image_label.setPixmap(
+                    pixmap.scaled(
+                        self.image_label.size(),
+                        Qt.AspectRatioMode.KeepAspectRatio,
+                        Qt.TransformationMode.SmoothTransformation,
+                    )
+                )
                 self.save_button.setEnabled(True)
 
         except Exception as e:
-            QMessageBox.critical(self, "Error", f"Failed to generate image:\n{str(e)}")
+            QMessageBox.critical(self, "Error", f"Failed to generate image:\n{e!s}")
         finally:
             self.generate_button.setEnabled(True)
             self.generate_button.setText("Generate Image")
@@ -288,7 +312,7 @@ class ImageGeneratorWidget(QWidget):
                 self.generated_image.save(file_path)
                 QMessageBox.information(self, "Success", "Image saved successfully!")
             except Exception as e:
-                QMessageBox.critical(self, "Error", f"Failed to save image:\n{str(e)}")
+                QMessageBox.critical(self, "Error", f"Failed to save image:\n{e!s}")
 
 
 # Create plugin instance

@@ -1,11 +1,10 @@
 """Tests for VoxTools plugins."""
 
-import pytest
-from pathlib import Path
+
 from vox_tools.core.plugin import PluginRegistry
-from vox_tools.plugins.files.plugin import FilesPlugin
 from vox_tools.plugins.crypto.plugin import CryptoPlugin
 from vox_tools.plugins.devtools.plugin import DevToolsPlugin
+from vox_tools.plugins.files.plugin import FilesPlugin
 
 
 class TestPluginRegistry:
@@ -48,7 +47,7 @@ class TestFilesPlugin:
         plugin = FilesPlugin()
         test_file = tmp_path / "test.txt"
         test_file.write_text("Hello, World!")
-        
+
         hash_result = plugin.hash_file(test_file)
         assert isinstance(hash_result, str)
         assert len(hash_result) == 64  # SHA256 hex length
@@ -56,21 +55,21 @@ class TestFilesPlugin:
     def test_find_duplicates(self, tmp_path):
         """Test duplicate file detection."""
         plugin = FilesPlugin()
-        
+
         # Create duplicate files
         file1 = tmp_path / "file1.txt"
         file2 = tmp_path / "file2.txt"
         file1.write_text("Same content")
         file2.write_text("Same content")
-        
+
         duplicates = plugin.find_duplicates(tmp_path)
         assert len(duplicates) == 1
-        assert len(list(duplicates.values())[0]) == 2
+        assert len(next(iter(duplicates.values()))) == 2
 
     def test_format_size(self):
         """Test size formatting."""
         plugin = FilesPlugin()
-        
+
         assert plugin.format_size(1024) == "1.0 KB"
         assert plugin.format_size(1024 * 1024) == "1.0 MB"
         assert plugin.format_size(1024 * 1024 * 1024) == "1.0 GB"
@@ -129,13 +128,13 @@ class TestDevToolsPlugin:
     def test_validate_json(self, tmp_path):
         """Test JSON validation."""
         plugin = DevToolsPlugin()
-        
+
         # Valid JSON
         valid_json = tmp_path / "valid.json"
         valid_json.write_text('{"key": "value"}')
         result = plugin.validate_json(valid_json)
         assert result["valid"] is True
-        
+
         # Invalid JSON
         invalid_json = tmp_path / "invalid.json"
         invalid_json.write_text('{"key": "value"')
@@ -145,12 +144,12 @@ class TestDevToolsPlugin:
     def test_test_regex(self):
         """Test regex testing."""
         plugin = DevToolsPlugin()
-        
+
         # Valid regex
         result = plugin.test_regex(r"\d+", "123abc456")
         assert result["valid"] is True
         assert result["match_count"] == 2
-        
+
         # Invalid regex
         result = plugin.test_regex(r"[", "test")
         assert result["valid"] is False

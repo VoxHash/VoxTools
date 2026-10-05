@@ -2,16 +2,12 @@
 
 from __future__ import annotations
 
-import sys
-from pathlib import Path
-
 import typer
 from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
 
 from vox_tools import __version__
-from vox_tools.core.logging import setup_logging
 from vox_tools.core.plugin import registry
 from vox_tools.core.settings import Settings
 
@@ -42,13 +38,13 @@ def list_plugins() -> None:
     # Discover and register plugins
     registry.discover_plugins()
     plugins = registry.list_plugins()
-    
+
     if not plugins:
         console.print("[yellow]No plugins found[/yellow]")
         return
 
     console.print("\n[bold]Available Plugins:[/bold]\n")
-    
+
     for plugin in plugins:
         panel = Panel(
             f"[bold]{plugin.name}[/bold] v{plugin.version}\n{plugin.summary}",
@@ -64,8 +60,10 @@ def info() -> None:
     info_text = Text()
     info_text.append("VoxTools\n", style="bold blue")
     info_text.append(f"Version: {__version__}\n")
-    info_text.append("A modern, cross-platform Swiss-army toolkit for developers and makers\n\n")
-    
+    info_text.append(
+        "A modern, cross-platform Swiss-army toolkit for developers and makers\n\n"
+    )
+
     info_text.append("Features:\n", style="bold")
     info_text.append("• CLI interface with rich output\n")
     info_text.append("• TUI dashboard (voxtools tui)\n")
@@ -73,12 +71,12 @@ def info() -> None:
     info_text.append("• Plugin architecture for extensibility\n")
     info_text.append("• Cross-platform support\n")
     info_text.append("• Theme support (system/light/dark)\n\n")
-    
+
     info_text.append("Quick Start:\n", style="bold")
     info_text.append("voxtools list-plugins    # List available plugins\n")
     info_text.append("voxtools tui             # Launch TUI dashboard\n")
     info_text.append("voxtools gui             # Launch GUI application\n")
-    
+
     panel = Panel(info_text, title="VoxTools Information", border_style="green")
     console.print(panel)
 
@@ -87,6 +85,7 @@ def info() -> None:
 def tui() -> None:
     """Launch the TUI dashboard."""
     from apps.tui.main import main as tui_main
+
     tui_main()
 
 
@@ -94,6 +93,7 @@ def tui() -> None:
 def gui() -> None:
     """Launch the GUI application."""
     from apps.gui.main import main as gui_main
+
     gui_main()
 
 

@@ -8,4 +8,11 @@ __license__ = "MIT"
 from vox_tools.core.plugin import PluginRegistry
 from vox_tools.core.settings import Settings
 
-__all__ = ["__version__", "__author__", "__email__", "__license__", "PluginRegistry", "Settings"]
+__all__ = [
+    "__version__",
+    "__author__",
+    "__email__",
+    "__license__",
+    "PluginRegistry",
+    "Settings",
+]

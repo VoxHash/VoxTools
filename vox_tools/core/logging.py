@@ -18,18 +18,17 @@ def setup_logging(
     backup_count: int = 5,
 ) -> logging.Logger:
     """Set up logging for VoxTools."""
-    
     # Create logger
     logger = logging.getLogger("voxtools")
     logger.setLevel(getattr(logging, level.upper(), logging.INFO))
-    
+
     # Clear existing handlers
     logger.handlers.clear()
-    
+
     # Console handler with Rich
     if console is None:
         console = Console()
-    
+
     console_handler = RichHandler(
         console=console,
         show_time=True,
@@ -38,7 +37,7 @@ def setup_logging(
         rich_tracebacks=True,
     )
     console_handler.setLevel(logging.DEBUG)
-    
+
     # Create formatter for console
     console_formatter = logging.Formatter(
         fmt="%(message)s",
@@ -46,14 +45,14 @@ def setup_logging(
     )
     console_handler.setFormatter(console_formatter)
     logger.addHandler(console_handler)
-    
+
     # File handler
     if enable_file_logging:
         if log_file is None:
             log_dir = Path.home() / ".voxtools" / "logs"
             log_dir.mkdir(parents=True, exist_ok=True)
             log_file = log_dir / "voxtools.log"
-        
+
         # Create rotating file handler
         file_handler = logging.handlers.RotatingFileHandler(
             log_file,
@@ -62,7 +61,7 @@ def setup_logging(
             encoding="utf-8",
         )
         file_handler.setLevel(logging.DEBUG)
-        
+
         # Create formatter for file
         file_formatter = logging.Formatter(
             fmt="%(asctime)s - %(name)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s",
@@ -70,8 +69,8 @@ def setup_logging(
         )
         file_handler.setFormatter(file_formatter)
         logger.addHandler(file_handler)
-    
+
     # Prevent propagation to root logger
     logger.propagate = False
-    
+
     return logger

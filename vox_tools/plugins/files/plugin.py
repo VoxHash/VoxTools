@@ -3,16 +3,12 @@
 from __future__ import annotations
 
 import hashlib
-import os
-import shutil
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
-from rich.console import Console
-from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich.table import Table
-from textual.app import App
 from PyQt6.QtWidgets import QWidget
+from rich.console import Console
+from textual.app import App
 
 from vox_tools.core.plugin import Plugin
 
@@ -49,10 +45,10 @@ class FilesPlugin(Plugin):
                 hash_obj.update(chunk)
         return hash_obj.hexdigest()
 
-    def find_duplicates(self, directory: Path) -> Dict[str, List[Path]]:
+    def find_duplicates(self, directory: Path) -> dict[str, list[Path]]:
         """Find duplicate files in a directory."""
-        file_hashes: Dict[str, List[Path]] = {}
-        
+        file_hashes: dict[str, list[Path]] = {}
+
         for file_path in directory.rglob("*"):
             if file_path.is_file():
                 try:
@@ -62,14 +58,14 @@ class FilesPlugin(Plugin):
                     file_hashes[file_hash].append(file_path)
                 except Exception:
                     continue
-        
+
         # Return only duplicates
         return {h: paths for h, paths in file_hashes.items() if len(paths) > 1}
 
     def bulk_rename(self, directory: Path, pattern: str, replacement: str) -> int:
         """Bulk rename files matching a pattern."""
         renamed_count = 0
-        
+
         for file_path in directory.rglob("*"):
             if file_path.is_file() and pattern in file_path.name:
                 new_name = file_path.name.replace(pattern, replacement)
@@ -79,7 +75,7 @@ class FilesPlugin(Plugin):
                     renamed_count += 1
                 except Exception:
                     continue
-        
+
         return renamed_count
 
     def get_directory_size(self, directory: Path) -> int:
