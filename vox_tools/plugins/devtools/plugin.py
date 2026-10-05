@@ -9,7 +9,11 @@ from typing import Any, Optional
 
 import toml
 import yaml
-from PyQt6.QtWidgets import QWidget
+
+try:
+    from PyQt6.QtWidgets import QWidget
+except (ImportError, OSError):  # pragma: no cover
+    QWidget = None  # type: ignore[misc, assignment]
 from rich.console import Console
 from textual.app import App
 

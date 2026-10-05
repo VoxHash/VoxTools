@@ -6,11 +6,24 @@ import json
 import os
 import platform
 from pathlib import Path
-from typing import Optional
+from typing import TYPE_CHECKING, Any, Optional
 
-from PyQt6.QtCore import QSettings
-from PyQt6.QtGui import QPalette
-from PyQt6.QtWidgets import QApplication
+try:
+    from PyQt6.QtCore import QSettings
+    from PyQt6.QtGui import QPalette
+    from PyQt6.QtWidgets import QApplication
+
+    _HAS_PYQT6 = True
+except (ImportError, OSError):  # pragma: no cover - headless / missing system libs
+    QSettings = None  # type: ignore[misc, assignment]
+    QPalette = None  # type: ignore[misc, assignment]
+    QApplication = None  # type: ignore[misc, assignment]
+    _HAS_PYQT6 = False
+
+if TYPE_CHECKING:
+    from PyQt6.QtWidgets import QApplication as QApplicationType
+else:
+    QApplicationType = Any
 
 
 class ThemeManager:
@@ -29,6 +42,8 @@ class ThemeManager:
 
         if system == "windows":
             try:
+                if not _HAS_PYQT6 or QSettings is None:
+                    return "light"
                 # Check Windows registry for theme preference
                 settings = QSettings(
                     "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
@@ -270,8 +285,11 @@ class ThemeManager:
         """Get the current theme."""
         return self._current_theme
 
-    def apply_theme_to_app(self, app: QApplication, theme: str) -> None:
+    def apply_theme_to_app(self, app: QApplicationType, theme: str) -> None:
         """Apply theme to a QApplication."""
+        if not _HAS_PYQT6 or QPalette is None:
+            return
+
         if theme == "system":
             theme = self.detect_system_theme()
 

@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - CI lint job: Black/isort formatting plus Ruff config aligned so `ruff check` / format checks pass on the shipped codebase
+- Headless imports: ThemeManager no longer hard-fails when PyQt6 system libraries (e.g. `libEGL`) are missing
+- CI: install OpenGL/EGL libs on Ubuntu; ensure Poetry is on PATH for Windows runners
 
 ## [0.2.0] - 2026-10-05
 
