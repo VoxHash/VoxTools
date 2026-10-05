@@ -12,6 +12,8 @@ on:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  # Tag pushes use github.ref_name; manual runs target an existing release tag.
+  RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.version || github.ref_name }}
 
 permissions:
   contents: write
@@ -47,7 +49,7 @@ jobs:
     - name: Generate release notes
       id: release_notes
       run: |
-        TAG=${GITHUB_REF#refs/tags/}
+        TAG="${{ env.RELEASE_TAG }}"
         echo "notes<<EOF" >> $GITHUB_OUTPUT
         echo "## VoxTools $TAG" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
@@ -57,8 +59,8 @@ jobs:
     - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: ${{ github.ref_name }}
-        name: Release ${{ github.ref_name }}
+        tag_name: ${{ env.RELEASE_TAG }}
+        name: Release ${{ env.RELEASE_TAG }}
         body: ${{ steps.release_notes.outputs.notes }}
         files: dist/*.whl
         draft: false
@@ -70,6 +72,8 @@ jobs:
     name: Build Windows Binaries
     runs-on: windows-latest
     needs: release
+    # Skip on workflow_dispatch so a macOS-only repair does not re-upload Linux/Windows.
+    if: github.event_name == 'push'
 
     steps:
     - uses: actions/checkout@v4
@@ -110,12 +114,13 @@ jobs:
         Copy-Item dist\binaries\* release\
         if (Test-Path assets\icons\*.png) { Copy-Item assets\icons\*.png release\ }
         if (Test-Path assets\icons\*.ico) { Copy-Item assets\icons\*.ico release\ }
-        Compress-Archive -Path release\* -DestinationPath voxtools-${{ github.ref_name }}-windows.zip
+        Compress-Archive -Path release\* -DestinationPath voxtools-${{ env.RELEASE_TAG }}-windows.zip
 
     - name: Upload Release Asset
       uses: softprops/action-gh-release@v2
       with:
-        files: voxtools-${{ github.ref_name }}-windows.zip
+        tag_name: ${{ env.RELEASE_TAG }}
+        files: voxtools-${{ env.RELEASE_TAG }}-windows.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -168,13 +173,14 @@ jobs:
         fi
         ls -la release
         cd release
-        zip -r ../voxtools-${{ github.ref_name }}-macos.zip .
+        zip -r ../voxtools-${{ env.RELEASE_TAG }}-macos.zip .
         cd ..
 
     - name: Upload Release Asset
       uses: softprops/action-gh-release@v2
       with:
-        files: voxtools-${{ github.ref_name }}-macos.zip
+        tag_name: ${{ env.RELEASE_TAG }}
+        files: voxtools-${{ env.RELEASE_TAG }}-macos.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -182,6 +188,8 @@ jobs:
     name: Build Linux Binaries
     runs-on: ubuntu-latest
     needs: release
+    # Skip on workflow_dispatch so a macOS-only repair does not re-upload Linux/Windows.
+    if: github.event_name == 'push'
 
     steps:
     - uses: actions/checkout@v4
@@ -224,12 +232,13 @@ jobs:
           cp assets/icons/*.png release/ 2>/dev/null || true
         fi
         cd release
-        zip -r ../voxtools-${{ github.ref_name }}-linux.zip .
+        zip -r ../voxtools-${{ env.RELEASE_TAG }}-linux.zip .
         cd ..
 
     - name: Upload Release Asset
       uses: softprops/action-gh-release@v2
       with:
-        files: voxtools-${{ github.ref_name }}-linux.zip
+        tag_name: ${{ env.RELEASE_TAG }}
+        files: voxtools-${{ env.RELEASE_TAG }}-linux.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
