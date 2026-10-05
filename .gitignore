@@ -124,6 +124,7 @@ site/
 AI_M/
 AI_S/
 .specstory/
+.cursorindexingignore
 
 # Pre-commit backups
 .pre-commit-config.yaml.bak
