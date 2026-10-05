@@ -3,16 +3,27 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "killertools"
-version = "0.1.2"
-description = "A modern, cross-platform Swiss-army toolkit for developers and makers"
+name = "voxtools"
+version = "0.2.0"
+description = "Cross-platform Swiss-army developer toolkit with CLI, TUI, GUI, and plugins"
 authors = ["Silas Renner (VoxHash) <contact@voxhash.dev>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/VoxHash/KillerTools"
-repository = "https://github.com/VoxHash/KillerTools"
-documentation = "https://voxhash.github.io/KillerTools"
-keywords = ["cli", "tui", "gui", "tools", "utilities", "developer", "productivity"]
+homepage = "https://github.com/VoxHash/VoxTools"
+repository = "https://github.com/VoxHash/VoxTools"
+documentation = "https://voxhash.github.io/VoxTools"
+keywords = [
+    "cli",
+    "tui",
+    "gui",
+    "developer-tools",
+    "productivity",
+    "plugins",
+    "swiss-army",
+    "utilities",
+    "cryptography",
+    "devtools",
+]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -21,25 +32,26 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: System :: Systems Administration",
     "Topic :: Utilities",
 ]
 
 packages = [
-    {include = "killer_tools"},
+    {include = "vox_tools"},
     {include = "apps"}
 ]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.14"
-typer = {extras = ["all"], version = "^0.9.0"}
+typer = "^0.16.0"
 rich = "^13.7.0"
 textual = "^0.44.0"
 PyQt6 = "^6.6.0"
 pydantic = "^2.5.0"
 pydantic-settings = "^2.1.0"
-click = "^8.1.7"
+click = ">=8.1.7,<9"
 pathlib2 = "^2.3.7"
 pillow = "^10.1.0"
 requests = "^2.31.0"
@@ -74,7 +86,8 @@ ai = ["openai"]
 network = ["speedtest-cli"]
 
 [tool.poetry.scripts]
-killertools = "apps.cli.main:app"
+voxtools = "apps.cli.main:app"
+killertools = "apps.cli.main:app"  # Legacy alias after KillerTools → VoxTools rename
 
 [tool.ruff]
 target-version = "py311"
@@ -124,7 +137,7 @@ ignore = [
 "scripts/**/*" = ["T20", "S101"]
 
 [tool.ruff.isort]
-known-first-party = ["killer_tools", "apps"]
+known-first-party = ["vox_tools", "apps"]
 
 [tool.black]
 target-version = ['py311']
@@ -148,7 +161,7 @@ extend-exclude = '''
 profile = "black"
 multi_line_output = 3
 line_length = 88
-known_first_party = ["killer_tools", "apps"]
+known_first_party = ["vox_tools", "apps"]
 known_third_party = ["typer", "rich", "textual", "PyQt6", "pydantic"]
 
 [tool.mypy]
@@ -194,7 +207,7 @@ markers = [
 ]
 
 [tool.coverage.run]
-source = ["killer_tools", "apps"]
+source = ["vox_tools", "apps"]
 omit = [
     "*/tests/*",
     "*/test_*",

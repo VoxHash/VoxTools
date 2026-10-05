@@ -49,9 +49,9 @@ jobs:
       run: |
         TAG=${GITHUB_REF#refs/tags/}
         echo "notes<<EOF" >> $GITHUB_OUTPUT
-        echo "## KillerTools $TAG" >> $GITHUB_OUTPUT
+        echo "## VoxTools $TAG" >> $GITHUB_OUTPUT
         echo "" >> $GITHUB_OUTPUT
-        echo "See [CHANGELOG.md](https://github.com/VoxHash/KillerTools/blob/$TAG/CHANGELOG.md) for details." >> $GITHUB_OUTPUT
+        echo "See [CHANGELOG.md](https://github.com/VoxHash/VoxTools/blob/$TAG/CHANGELOG.md) for details." >> $GITHUB_OUTPUT
         echo "EOF" >> $GITHUB_OUTPUT
 
     - name: Create Release
@@ -96,13 +96,13 @@ jobs:
       run: poetry add pyinstaller --group dev
 
     - name: Build CLI binary
-      run: poetry run pyinstaller --clean --noconfirm apps/cli/main.py --name killertools-cli --onefile --distpath dist/binaries
+      run: poetry run pyinstaller --clean --noconfirm apps/cli/main.py --name voxtools-cli --onefile --distpath dist/binaries
 
     - name: Build TUI binary
-      run: poetry run pyinstaller --clean --noconfirm apps/tui/main.py --name killertools-tui --onefile --distpath dist/binaries
+      run: poetry run pyinstaller --clean --noconfirm apps/tui/main.py --name voxtools-tui --onefile --distpath dist/binaries
 
     - name: Build GUI binary
-      run: poetry run pyinstaller --clean --noconfirm apps/gui/main.py --name killertools-gui --onefile --windowed --distpath dist/binaries
+      run: poetry run pyinstaller --clean --noconfirm apps/gui/main.py --name voxtools-gui --onefile --windowed --distpath dist/binaries
 
     - name: Create release archive
       run: |
@@ -110,12 +110,12 @@ jobs:
         Copy-Item dist\binaries\* release\
         if (Test-Path assets\icons\*.png) { Copy-Item assets\icons\*.png release\ }
         if (Test-Path assets\icons\*.ico) { Copy-Item assets\icons\*.ico release\ }
-        Compress-Archive -Path release\* -DestinationPath killertools-${{ github.ref_name }}-windows.zip
+        Compress-Archive -Path release\* -DestinationPath voxtools-${{ github.ref_name }}-windows.zip
 
     - name: Upload Release Asset
       uses: softprops/action-gh-release@v2
       with:
-        files: killertools-${{ github.ref_name }}-windows.zip
+        files: voxtools-${{ github.ref_name }}-windows.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -149,13 +149,13 @@ jobs:
       run: poetry add pyinstaller --group dev
 
     - name: Build CLI binary
-      run: poetry run pyinstaller --clean --noconfirm apps/cli/main.py --name killertools-cli --onefile --distpath dist/binaries
+      run: poetry run pyinstaller --clean --noconfirm apps/cli/main.py --name voxtools-cli --onefile --distpath dist/binaries
 
     - name: Build TUI binary
-      run: poetry run pyinstaller --clean --noconfirm apps/tui/main.py --name killertools-tui --onefile --distpath dist/binaries
+      run: poetry run pyinstaller --clean --noconfirm apps/tui/main.py --name voxtools-tui --onefile --distpath dist/binaries
 
     - name: Build GUI binary
-      run: poetry run pyinstaller --clean --noconfirm apps/gui/main.py --name killertools-gui --onefile --windowed --distpath dist/binaries
+      run: poetry run pyinstaller --clean --noconfirm apps/gui/main.py --name voxtools-gui --onefile --windowed --distpath dist/binaries
 
     - name: Create release archive
       run: |
@@ -165,13 +165,13 @@ jobs:
           cp assets/icons/*.png assets/icons/*.icns release/ 2>/dev/null || true
         fi
         cd release
-        zip -r ../killertools-${{ github.ref_name }}-macos.zip .
+        zip -r ../voxtools-${{ github.ref_name }}-macos.zip .
         cd ..
 
     - name: Upload Release Asset
       uses: softprops/action-gh-release@v2
       with:
-        files: killertools-${{ github.ref_name }}-macos.zip
+        files: voxtools-${{ github.ref_name }}-macos.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -205,13 +205,13 @@ jobs:
       run: poetry add pyinstaller --group dev
 
     - name: Build CLI binary
-      run: poetry run pyinstaller --clean --noconfirm apps/cli/main.py --name killertools-cli --onefile --distpath dist/binaries
+      run: poetry run pyinstaller --clean --noconfirm apps/cli/main.py --name voxtools-cli --onefile --distpath dist/binaries
 
     - name: Build TUI binary
-      run: poetry run pyinstaller --clean --noconfirm apps/tui/main.py --name killertools-tui --onefile --distpath dist/binaries
+      run: poetry run pyinstaller --clean --noconfirm apps/tui/main.py --name voxtools-tui --onefile --distpath dist/binaries
 
     - name: Build GUI binary
-      run: poetry run pyinstaller --clean --noconfirm apps/gui/main.py --name killertools-gui --onefile --windowed --distpath dist/binaries
+      run: poetry run pyinstaller --clean --noconfirm apps/gui/main.py --name voxtools-gui --onefile --windowed --distpath dist/binaries
 
     - name: Create release archive
       run: |
@@ -221,12 +221,12 @@ jobs:
           cp assets/icons/*.png release/ 2>/dev/null || true
         fi
         cd release
-        zip -r ../killertools-${{ github.ref_name }}-linux.zip .
+        zip -r ../voxtools-${{ github.ref_name }}-linux.zip .
         cd ..
 
     - name: Upload Release Asset
       uses: softprops/action-gh-release@v2
       with:
-        files: killertools-${{ github.ref_name }}-linux.zip
+        files: voxtools-${{ github.ref_name }}-linux.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

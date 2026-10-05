@@ -1,8 +1,8 @@
-# KillerTools
+# VoxTools
 
-[![CI](https://github.com/VoxHash/KillerTools/workflows/CI/badge.svg)](https://github.com/VoxHash/KillerTools/actions)
-[![License](https://img.shields.io/github/license/VoxHash/KillerTools)](LICENSE)
-[![Release](https://img.shields.io/github/v/release/VoxHash/KillerTools?sort=semver)](https://github.com/VoxHash/KillerTools/releases)
+[![CI](https://github.com/VoxHash/VoxTools/workflows/CI/badge.svg)](https://github.com/VoxHash/VoxTools/actions)
+[![License](https://img.shields.io/github/license/VoxHash/VoxTools)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/VoxHash/VoxTools?sort=semver)](https://github.com/VoxHash/VoxTools/releases)
 [![Docs](https://img.shields.io/badge/docs-website-blue)](./docs/index.md)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![Code style: Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
@@ -32,15 +32,15 @@
 ## 🚀 Quick Start
 ```bash
 # 1) Install
-pipx install killertools
+pipx install voxtools
 # or
-pip install killertools
+pip install voxtools
 
 # 2) Run
-killertools --help
-killertools list-plugins
-killertools tui  # Launch TUI
-killertools gui  # Launch GUI
+voxtools --help
+voxtools list-plugins
+voxtools tui  # Launch TUI
+voxtools gui  # Launch GUI
 ```
 
 ## 💿 Installation
@@ -48,41 +48,38 @@ See [docs/installation.md](docs/installation.md) for platform-specific steps.
 
 ### Using pipx (Recommended)
 ```bash
-pipx install killertools
+pipx install voxtools
 ```
 
 ### Using Poetry
 ```bash
-git clone https://github.com/VoxHash/KillerTools.git
-cd KillerTools
+git clone https://github.com/VoxHash/VoxTools.git
+cd VoxTools
 poetry install
-poetry run killertools --help
+poetry run voxtools --help
 ```
 
 ### Using pip
 ```bash
-pip install killertools
+pip install voxtools
 ```
 
 ## 🛠 Usage
 Basic usage here. Advanced usage in [docs/usage.md](docs/usage.md) and [docs/cli.md](docs/cli.md).
 
 ```bash
-# List available plugins
-killertools list-plugins
-
-# Run a plugin
-killertools files --help
-killertools crypto --help
-killertools devtools --help
+# Core commands
+voxtools version
+voxtools info
+voxtools list-plugins
 
 # Launch interfaces
-killertools tui   # Terminal UI
-killertools gui   # Graphical UI
+voxtools tui   # Terminal UI
+voxtools gui   # Graphical UI
 ```
 
 ## ⚙️ Configuration
-Configuration is stored in `~/.killertools/config.json`. See [docs/configuration.md](docs/configuration.md) for full reference.
+Configuration is stored in `~/.voxtools/config.json`. See [docs/configuration.md](docs/configuration.md) for full reference.
 
 | Variable | Description | Default |
 |---|---|---|
@@ -97,7 +94,7 @@ Configuration is stored in `~/.killertools/config.json`. See [docs/configuration
 - More: [docs/examples/](docs/examples/)
 
 ## 🧩 Architecture
-KillerTools uses a plugin-based architecture with dynamic loading. See [docs/architecture.md](docs/architecture.md) for details.
+VoxTools uses a plugin-based architecture with dynamic loading. See [docs/architecture.md](docs/architecture.md) for details.
 
 **Key Components:**
 - **Plugin Registry**: Auto-discovers and registers plugins
@@ -127,8 +124,8 @@ We welcome PRs! Please read [CONTRIBUTING.md](CONTRIBUTING.md) and follow the PR
 Please report vulnerabilities via [SECURITY.md](SECURITY.md).
 
 ## 📞 Support
-- **Documentation**: [docs/](docs/) and [full docs](https://voxhash.github.io/KillerTools)
-- **Issues**: [GitHub Issues](https://github.com/VoxHash/KillerTools/issues)
+- **Documentation**: [docs/](docs/) and [full docs](https://voxhash.github.io/VoxTools)
+- **Issues**: [GitHub Issues](https://github.com/VoxHash/VoxTools/issues)
 - **Contact**: See [SUPPORT.md](SUPPORT.md)
 
 ## 📄 License
@@ -140,6 +137,6 @@ This project is licensed under the terms in [LICENSE](LICENSE).
 
 **Made with ❤️ by [VoxHash](https://github.com/VoxHash)**
 
-[⭐ Star this repo](https://github.com/VoxHash/KillerTools) • [🐛 Report a bug](https://github.com/VoxHash/KillerTools/issues) • [💡 Request a feature](https://github.com/VoxHash/KillerTools/issues)
+[⭐ Star this repo](https://github.com/VoxHash/VoxTools) • [🐛 Report a bug](https://github.com/VoxHash/VoxTools/issues) • [💡 Request a feature](https://github.com/VoxHash/VoxTools/issues)
 
 </div>

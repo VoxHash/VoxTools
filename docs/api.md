@@ -1,13 +1,13 @@
 # API Reference
 
-API reference for KillerTools.
+API reference for VoxTools.
 
 ## Plugin Protocol
 
 All plugins must implement the `Plugin` protocol:
 
 ```python
-from killer_tools.core.plugin import Plugin
+from vox_tools.core.plugin import Plugin
 from rich.console import Console
 from typing import Any, Optional
 from PyQt6.QtWidgets import QWidget
@@ -34,7 +34,7 @@ class MyPlugin(Plugin):
 ## Plugin Registry
 
 ```python
-from killer_tools.core.plugin import registry
+from vox_tools.core.plugin import registry
 
 # Discover plugins
 registry.discover_plugins()
@@ -52,7 +52,7 @@ registry.run_plugin_cli("plugin_name", **kwargs)
 ## Settings
 
 ```python
-from killer_tools.core.settings import Settings
+from vox_tools.core.settings import Settings
 
 # Load settings
 settings = Settings.load_from_file()
@@ -67,7 +67,7 @@ settings.save_to_file()
 ## Theme Manager
 
 ```python
-from killer_tools.core.theme import ThemeManager
+from vox_tools.core.theme import ThemeManager
 
 theme_manager = ThemeManager()
 theme = theme_manager.detect_system_theme()
@@ -76,5 +76,6 @@ colors = theme_manager.get_theme_colors(theme)
 
 ## See Also
 
-- [Creating Plugins](creating-plugins.md)
 - [Architecture](architecture.md)
+- [CLI Reference](cli.md)
+- [Examples](examples/example-01.md)

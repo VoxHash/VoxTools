@@ -1,70 +1,62 @@
 # Usage Guide
 
-Learn how to use KillerTools effectively.
+How to run VoxTools day to day.
 
 ## Command Structure
 
 ```bash
-killertools [command] [options]
+voxtools [command]
 ```
 
-## Commands
-
-### List Plugins
-```bash
-killertools list-plugins
-```
-
-### Launch Interfaces
-```bash
-killertools tui   # Terminal UI
-killertools gui   # Graphical UI
-```
-
-### Plugin Commands
-Each plugin has its own commands. Use `--help` to see available options:
+## Core Commands
 
 ```bash
-killertools files --help
-killertools crypto --help
-killertools devtools --help
+voxtools version
+voxtools info
+voxtools list-plugins
+voxtools tui    # Terminal UI
+voxtools gui    # Graphical UI
 ```
 
-## Examples
+## Working with plugins
 
-### Files Plugin
+1. List discovered plugins:
+
 ```bash
-# Hash a file
-killertools files hash /path/to/file
-
-# Find duplicates
-killertools files find-duplicates /path/to/directory
+voxtools list-plugins
 ```
 
-### Crypto Plugin
-```bash
-# Generate UUID
-killertools crypto uuid
+2. Call plugin APIs from Python (current stable interface):
 
-# Hash text
-killertools crypto hash "your text here"
+```python
+from pathlib import Path
+from vox_tools.plugins.files.plugin import FilesPlugin
+from vox_tools.plugins.crypto.plugin import CryptoPlugin
+from vox_tools.plugins.devtools.plugin import DevToolsPlugin
+
+print(FilesPlugin().hash_file(Path("README.md")))
+print(CryptoPlugin().generate_uuid())
+print(DevToolsPlugin().test_regex(r"\w+", "hello world"))
 ```
 
-### DevTools Plugin
-```bash
-# Format JSON
-killertools devtools format-json file.json
+3. Or open `voxtools tui` / `voxtools gui` for interactive use.
 
-# Test regex
-killertools devtools regex-test "\d+" "123abc"
-```
+Dedicated CLI subcommands per plugin are planned; see [ROADMAP.md](../ROADMAP.md).
 
 ## Configuration
 
-See [Configuration Guide](configuration.md) for details.
+See [Configuration](configuration.md). Defaults live in `~/.voxtools/config.json`.
 
-## Advanced Usage
+## Image plugin notes
+
+The image plugin needs `VOXTOOLS_OPENAI_API_KEY` (or a configured key in settings) and the optional `ai` extra:
+
+```bash
+pip install 'voxtools[ai]'
+```
+
+## Advanced
 
 - [CLI Reference](cli.md)
-- [Examples](examples/)
+- [Examples](examples/example-01.md)
 - [Architecture](architecture.md)

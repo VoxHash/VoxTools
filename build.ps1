@@ -1,4 +1,4 @@
-# KillerTools PowerShell Build Script
+# VoxTools PowerShell Build Script
 # Cross-platform build and development commands
 
 param(
@@ -25,7 +25,7 @@ function Write-ColorOutput {
 }
 
 function Show-Help {
-    Write-ColorOutput "KillerTools PowerShell Build Script" "Cyan"
+    Write-ColorOutput "VoxTools PowerShell Build Script" "Cyan"
     Write-ColorOutput "=====================================" "Cyan"
     Write-ColorOutput ""
     Write-ColorOutput "Available commands:" "Yellow"
@@ -106,16 +106,16 @@ function Invoke-Dev {
 function Invoke-Test {
     Write-ColorOutput "Running tests..." "Blue"
     if ($Verbose) {
-        poetry run pytest tests/ -v --cov=killer_tools --cov=apps --cov-report=html --cov-report=term
+        poetry run pytest tests/ -v --cov=vox_tools --cov=apps --cov-report=html --cov-report=term
     } else {
-        poetry run pytest tests/ --cov=killer_tools --cov=apps --cov-report=term
+        poetry run pytest tests/ --cov=vox_tools --cov=apps --cov-report=term
     }
     Write-ColorOutput "Tests completed!" "Green"
 }
 
 function Invoke-Lint {
     Write-ColorOutput "Running linters..." "Blue"
-    poetry run ruff check killer_tools/ apps/ tests/ scripts/
+    poetry run ruff check vox_tools/ apps/ tests/ scripts/
     if ($LASTEXITCODE -eq 0) {
         Write-ColorOutput "Linting passed!" "Green"
     } else {
@@ -126,14 +126,14 @@ function Invoke-Lint {
 
 function Invoke-Format {
     Write-ColorOutput "Formatting code..." "Blue"
-    poetry run black killer_tools/ apps/ tests/ scripts/
-    poetry run isort killer_tools/ apps/ tests/ scripts/
+    poetry run black vox_tools/ apps/ tests/ scripts/
+    poetry run isort vox_tools/ apps/ tests/ scripts/
     Write-ColorOutput "Code formatted!" "Green"
 }
 
 function Invoke-TypeCheck {
     Write-ColorOutput "Running type checker..." "Blue"
-    poetry run mypy killer_tools/ apps/
+    poetry run mypy vox_tools/ apps/
     if ($LASTEXITCODE -eq 0) {
         Write-ColorOutput "Type checking passed!" "Green"
     } else {
@@ -152,7 +152,7 @@ function Invoke-Quality {
 }
 
 function Invoke-Build {
-    Write-ColorOutput "Building KillerTools..." "Blue"
+    Write-ColorOutput "Building VoxTools..." "Blue"
     
     # Generate icons first
     Write-ColorOutput "Generating icons..." "Blue"
@@ -167,15 +167,15 @@ function Invoke-Build {
     
     # CLI binary
     Write-ColorOutput "Building CLI binary..." "Blue"
-    poetry run pyinstaller --clean --noconfirm apps/cli/main.py --name killertools-cli --onefile --distpath dist/binaries
+    poetry run pyinstaller --clean --noconfirm apps/cli/main.py --name voxtools-cli --onefile --distpath dist/binaries
     
     # TUI binary
     Write-ColorOutput "Building TUI binary..." "Blue"
-    poetry run pyinstaller --clean --noconfirm apps/tui/main.py --name killertools-tui --onefile --distpath dist/binaries
+    poetry run pyinstaller --clean --noconfirm apps/tui/main.py --name voxtools-tui --onefile --distpath dist/binaries
     
     # GUI binary
     Write-ColorOutput "Building GUI binary..." "Blue"
-    poetry run pyinstaller --clean --noconfirm apps/gui/main.py --name killertools-gui --onefile --windowed --distpath dist/binaries
+    poetry run pyinstaller --clean --noconfirm apps/gui/main.py --name voxtools-gui --onefile --windowed --distpath dist/binaries
     
     Write-ColorOutput "Build complete! Check dist/ directory" "Green"
 }
@@ -213,17 +213,17 @@ function Invoke-Clean {
 
 function Invoke-RunCli {
     Write-ColorOutput "Running CLI application..." "Blue"
-    poetry run killertools --help
+    poetry run voxtools --help
 }
 
 function Invoke-RunTui {
     Write-ColorOutput "Running TUI application..." "Blue"
-    poetry run killertools tui
+    poetry run voxtools tui
 }
 
 function Invoke-RunGui {
     Write-ColorOutput "Running GUI application..." "Blue"
-    poetry run killertools gui
+    poetry run voxtools gui
 }
 
 function Invoke-Docs {

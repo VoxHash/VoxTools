@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a report to help us improve KillerTools
+about: Create a report to help us improve VoxTools
 title: '[BUG] '
 labels: ['bug', 'needs-triage']
 assignees: ''
@@ -29,7 +29,7 @@ If applicable, add screenshots to help explain your problem.
 ## 🖥️ Environment
 - **OS**: [e.g. Windows 11, macOS 13, Ubuntu 22.04]
 - **Python Version**: [e.g. 3.11.0]
-- **KillerTools Version**: [e.g. 0.1.0]
+- **VoxTools Version**: [e.g. 0.1.0]
 - **Interface**: [CLI/TUI/GUI]
 
 ## 📋 Additional Context

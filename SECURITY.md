@@ -17,7 +17,7 @@ We actively support the latest release and provide security updates for:
 - Previous major version (for 6 months after new release)
 
 ## Security Best Practices
-- Keep KillerTools updated to the latest version
+- Keep VoxTools updated to the latest version
 - Review plugin permissions before installation
 - Use environment variables for sensitive configuration
 - Report security issues responsibly

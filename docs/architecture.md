@@ -1,10 +1,10 @@
 # Architecture
 
-High-level architecture of KillerTools.
+High-level architecture of VoxTools.
 
 ## Overview
 
-KillerTools uses a plugin-based architecture with multiple interfaces.
+VoxTools uses a plugin-based architecture with multiple interfaces.
 
 ## Core Components
 
@@ -26,7 +26,7 @@ KillerTools uses a plugin-based architecture with multiple interfaces.
 ## Plugin Architecture
 
 ```
-killer_tools/
+vox_tools/
 ├── core/
 │   ├── plugin.py      # Plugin protocol and registry
 │   ├── settings.py    # Settings management

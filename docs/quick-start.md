@@ -1,61 +1,63 @@
 # Quick Start
 
-Get KillerTools up and running in minutes.
+Get VoxTools running in minutes.
 
 ## Installation
 
 ```bash
 # Using pipx (recommended)
-pipx install killertools
+pipx install voxtools
 
 # Or using pip
-pip install killertools
+pip install voxtools
+
+# From a local clone (development)
+uv venv --python 3.12 .venv
+source .venv/bin/activate
+uv pip install -e .
 ```
 
 ## Basic Usage
 
 ```bash
-# Show help
-killertools --help
-
-# List plugins
-killertools list-plugins
-
-# Run a plugin
-killertools files --help
-killertools crypto --help
+voxtools --help
+voxtools version
+voxtools info
+voxtools list-plugins
 ```
 
 ## Launch Interfaces
 
 ```bash
-# Terminal UI
-killertools tui
-
-# Graphical UI
-killertools gui
+voxtools tui
+voxtools gui
 ```
 
 ## Example: File Hashing
 
 ```bash
-# Use the files plugin to hash a file
-killertools files hash /path/to/file
+python - <<'PY'
+from pathlib import Path
+from vox_tools.plugins.files.plugin import FilesPlugin
+print(FilesPlugin().hash_file(Path("README.md")))
+PY
 ```
 
 ## Example: Generate UUID
 
 ```bash
-# Use the crypto plugin
-killertools crypto uuid
+python - <<'PY'
+from vox_tools.plugins.crypto.plugin import CryptoPlugin
+print(CryptoPlugin().generate_uuid())
+PY
 ```
 
 ## Configuration
 
-Configuration is stored in `~/.killertools/config.json`. See [Configuration Guide](configuration.md) for details.
+Defaults live in `~/.voxtools/config.json`. See [Configuration](configuration.md).
 
 ## Next Steps
 
-- [Getting Started Guide](getting-started.md)
-- [Usage Guide](usage.md)
-- [Examples](examples/)
+- [Getting Started](getting-started.md)
+- [Usage](usage.md)
+- [Examples](examples/example-01.md)

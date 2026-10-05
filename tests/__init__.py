@@ -1,1 +1,1 @@
-"""Tests for KillerTools."""
+"""Tests for VoxTools."""

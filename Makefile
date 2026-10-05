@@ -1,11 +1,11 @@
-# KillerTools Makefile
+# VoxTools Makefile
 # Cross-platform build and development commands
 
 .PHONY: help setup install dev test lint format typecheck build clean run-cli run-tui run-gui icons
 
 # Default target
 help:
-	@echo "KillerTools - Available commands:"
+	@echo "VoxTools - Available commands:"
 	@echo ""
 	@echo "Setup & Development:"
 	@echo "  setup          - Set up development environment"
@@ -49,24 +49,24 @@ dev:
 # Run tests
 test:
 	@echo "Running tests..."
-	poetry run pytest tests/ -v --cov=killer_tools --cov=apps --cov-report=html --cov-report=term
+	poetry run pytest tests/ -v --cov=vox_tools --cov=apps --cov-report=html --cov-report=term
 
 # Run linters
 lint:
 	@echo "Running linters..."
-	poetry run ruff check killer_tools/ apps/ tests/ scripts/
-	poetry run ruff check --fix killer_tools/ apps/ tests/ scripts/
+	poetry run ruff check vox_tools/ apps/ tests/ scripts/
+	poetry run ruff check --fix vox_tools/ apps/ tests/ scripts/
 
 # Format code
 format:
 	@echo "Formatting code..."
-	poetry run black killer_tools/ apps/ tests/ scripts/
-	poetry run isort killer_tools/ apps/ tests/ scripts/
+	poetry run black vox_tools/ apps/ tests/ scripts/
+	poetry run isort vox_tools/ apps/ tests/ scripts/
 
 # Run type checker
 typecheck:
 	@echo "Running type checker..."
-	poetry run mypy killer_tools/ apps/
+	poetry run mypy vox_tools/ apps/
 
 # Run all quality checks
 quality: lint format typecheck test
@@ -82,9 +82,9 @@ build: icons
 	@echo "Building wheels..."
 	poetry build
 	@echo "Building binaries with PyInstaller..."
-	poetry run pyinstaller --clean --noconfirm apps/cli/main.py --name killertools-cli --onefile --distpath dist/binaries
-	poetry run pyinstaller --clean --noconfirm apps/tui/main.py --name killertools-tui --onefile --distpath dist/binaries
-	poetry run pyinstaller --clean --noconfirm apps/gui/main.py --name killertools-gui --onefile --windowed --distpath dist/binaries
+	poetry run pyinstaller --clean --noconfirm apps/cli/main.py --name voxtools-cli --onefile --distpath dist/binaries
+	poetry run pyinstaller --clean --noconfirm apps/tui/main.py --name voxtools-tui --onefile --distpath dist/binaries
+	poetry run pyinstaller --clean --noconfirm apps/gui/main.py --name voxtools-gui --onefile --windowed --distpath dist/binaries
 	@echo "Build complete! Check dist/ directory"
 
 # Clean build artifacts
@@ -104,17 +104,17 @@ clean:
 # Run CLI application
 run-cli:
 	@echo "Running CLI application..."
-	poetry run killertools --help
+	poetry run voxtools --help
 
 # Run TUI application
 run-tui:
 	@echo "Running TUI application..."
-	poetry run killertools tui
+	poetry run voxtools tui
 
 # Run GUI application
 run-gui:
 	@echo "Running GUI application..."
-	poetry run killertools gui
+	poetry run voxtools gui
 
 # Development server
 dev-server:

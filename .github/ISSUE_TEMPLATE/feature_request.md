@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for KillerTools
+about: Suggest an idea for VoxTools
 title: '[FEATURE] '
 labels: ['enhancement', 'needs-triage']
 assignees: ''
@@ -45,7 +45,7 @@ How important is this feature to you?
 - [ ] Low - Nice to have
 - [ ] Medium - Would improve my workflow
 - [ ] High - Essential for my use case
-- [ ] Critical - Cannot use KillerTools without this
+- [ ] Critical - Cannot use VoxTools without this
 
 ## ✅ Checklist
 - [ ] I have searched for existing feature requests before creating this one

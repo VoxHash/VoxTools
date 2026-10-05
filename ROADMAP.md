@@ -1,67 +1,38 @@
-# Roadmap — KillerTools
+# Roadmap — VoxTools
 
-High-level milestones and planned features for KillerTools.
+High-level milestones aligned with the current 0.2.x codebase (CLI/TUI/GUI shell + files/crypto/devtools/image plugins).
 
-## Q2 2026
+## Near term (0.2.x)
 
-### Core Completion
-- [ ] Complete TUI implementation with full plugin support
-- [ ] Complete GUI implementation with native look and feel
-- [ ] Enhanced plugin discovery and registration system
-- [ ] Improved error handling and user feedback
+### Stability & DX
+- [ ] Register plugin Typer sub-apps so `voxtools <plugin> --help` works end-to-end
+- [ ] Finish TUI plugin panels for all shipped plugins
+- [ ] Finish GUI widgets for crypto/devtools beyond basic shells
+- [ ] Harden optional-dependency plugin discovery (ai/media/net stubs)
 
-### Plugin Expansion
-- [ ] Media plugin with FFmpeg integration
-  - Audio/video conversion
-  - Thumbnail generation
-  - Media metadata extraction
-- [ ] Network plugin with network utilities
-  - Ping and DNS lookup
-  - HTTP probing
-  - Speed testing
-- [ ] AI plugin with OpenAI integration
-  - Text summarization
-  - Translation
-  - Code generation
+### Docs & distribution
+- [ ] Publish MkDocs site to GitHub Pages under the VoxTools repo name
+- [ ] Ship pip/PyPI `voxtools` package when ready
+- [ ] Cross-platform release binaries via existing release workflow
 
-## Q3 2026
+## Mid term (0.3.x)
 
-### Advanced Features
-- [ ] Plugin marketplace and registry
-- [ ] Advanced theming with custom color schemes
-- [ ] Plugin development tools and templates
-- [ ] Cross-platform binary distributions
-- [ ] Performance optimizations
+### Plugin expansion
+- [ ] Media plugin (FFmpeg): convert, thumbnails, metadata
+- [ ] Network plugin: ping/DNS, HTTP probe, optional speedtest extra
+- [ ] AI plugin: summarize/translate/codegen behind `VOXTOOLS_OPENAI_API_KEY`
 
-### Developer Experience
-- [ ] Enhanced plugin API
-- [ ] Plugin testing framework
-- [ ] Plugin documentation generator
-- [ ] Development tools and utilities
+### Developer experience
+- [ ] Plugin scaffold template + docs generator
+- [ ] Plugin test helpers in `tests/`
+- [ ] Optional plugin marketplace/registry design doc
 
-## Q4 2026
+## Later
 
-### Platform Expansion
-- [ ] Web interface (future consideration)
-- [ ] Advanced integration features
-- [ ] Cloud sync capabilities
-- [ ] Enterprise features
-
-### Professional Features
-- [ ] Advanced plugin management
-- [ ] Professional support and documentation
-- [ ] Community marketplace
-- [ ] Analytics and telemetry (opt-in)
-
-## Future Considerations
-
-### Long-term Goals
-- Mobile app (future consideration)
-- Plugin ecosystem expansion
-- Community-driven plugin repository
-- Integration with popular developer tools
-- Advanced automation features
+- [ ] Custom theme packs beyond system/light/dark
+- [ ] Opt-in telemetry (off by default; already modeled in settings)
+- [ ] Web UI only if CLI/TUI/GUI demand justifies it
 
 ---
 
-**Note**: This roadmap is subject to change based on community feedback and priorities.
+Items move only when they match shipped code. Feedback: [SUPPORT.md](SUPPORT.md) · contact@voxhash.dev

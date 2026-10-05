@@ -28,7 +28,7 @@ try:
 except ImportError:
     openai = None  # type: ignore
 
-from killer_tools.core.plugin import Plugin
+from vox_tools.core.plugin import Plugin
 
 
 class ImageGeneratorPlugin(Plugin):
@@ -50,7 +50,7 @@ class ImageGeneratorPlugin(Plugin):
         
         # If not found, try to load from a config file
         if not self.api_key:
-            config_path = Path.home() / ".killertools" / "openai_key.txt"
+            config_path = Path.home() / ".voxtools" / "openai_key.txt"
             if config_path.exists():
                 try:
                     self.api_key = config_path.read_text().strip()
@@ -61,7 +61,7 @@ class ImageGeneratorPlugin(Plugin):
         """Run the image generator plugin in CLI mode."""
         console.print("[bold blue]Image Generator Plugin[/bold blue]")
         console.print("\n[bold]Usage:[/bold]")
-        console.print("  killertools image generate --prompt 'your prompt' [--filter FILTER] [--size SIZE]")
+        console.print("  voxtools image generate --prompt 'your prompt' [--filter FILTER] [--size SIZE]")
         console.print("\n[bold]Options:[/bold]")
         console.print("  --prompt, -p    : Image generation prompt (required)")
         console.print("  --filter, -f    : Filter style (None, Anime, Cyberpunk) [default: None]")
@@ -69,8 +69,8 @@ class ImageGeneratorPlugin(Plugin):
         console.print("  --output, -o    : Output file path [default: generated_image.png]")
         console.print("  --api-key, -k   : OpenAI API key (or set OPENAI_API_KEY env var)")
         console.print("\n[bold]Examples:[/bold]")
-        console.print("  killertools image generate -p 'a sunset over mountains'")
-        console.print("  killertools image generate -p 'a cat' -f Anime -s 1024")
+        console.print("  voxtools image generate -p 'a sunset over mountains'")
+        console.print("  voxtools image generate -p 'a cat' -f Anime -s 1024")
         
         if not openai:
             console.print("\n[yellow]Warning:[/yellow] openai package not installed. Install with: pip install openai")

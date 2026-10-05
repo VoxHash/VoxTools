@@ -59,16 +59,16 @@ jobs:
 
     - name: Run linters
       run: |
-        poetry run ruff check killer_tools/ apps/ tests/ scripts/
-        poetry run black --check killer_tools/ apps/ tests/ scripts/
-        poetry run isort --check-only killer_tools/ apps/ tests/ scripts/
+        poetry run ruff check vox_tools/ apps/ tests/ scripts/
+        poetry run black --check vox_tools/ apps/ tests/ scripts/
+        poetry run isort --check-only vox_tools/ apps/ tests/ scripts/
 
     - name: Run type checker
       continue-on-error: true
-      run: poetry run mypy killer_tools/ apps/
+      run: poetry run mypy vox_tools/ apps/
 
     - name: Run tests
-      run: poetry run pytest tests/ --cov=killer_tools --cov=apps --cov-report=xml --cov-report=term -v
+      run: poetry run pytest tests/ --cov=vox_tools --cov=apps --cov-report=xml --cov-report=term -v
 
     - name: Upload coverage to Codecov
       if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.11'
@@ -145,13 +145,13 @@ jobs:
       run: poetry add pyinstaller --group dev
 
     - name: Build CLI binary
-      run: poetry run pyinstaller --clean --noconfirm apps/cli/main.py --name killertools-cli --onefile --distpath dist/binaries
+      run: poetry run pyinstaller --clean --noconfirm apps/cli/main.py --name voxtools-cli --onefile --distpath dist/binaries
 
     - name: Build TUI binary
-      run: poetry run pyinstaller --clean --noconfirm apps/tui/main.py --name killertools-tui --onefile --distpath dist/binaries
+      run: poetry run pyinstaller --clean --noconfirm apps/tui/main.py --name voxtools-tui --onefile --distpath dist/binaries
 
     - name: Build GUI binary
-      run: poetry run pyinstaller --clean --noconfirm apps/gui/main.py --name killertools-gui --onefile --windowed --distpath dist/binaries
+      run: poetry run pyinstaller --clean --noconfirm apps/gui/main.py --name voxtools-gui --onefile --windowed --distpath dist/binaries
 
     - name: Upload binaries
       uses: actions/upload-artifact@v4

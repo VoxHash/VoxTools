@@ -1,1 +1,1 @@
-"""TUI application for KillerTools."""
+"""TUI application for VoxTools."""

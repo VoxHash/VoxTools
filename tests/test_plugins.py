@@ -1,11 +1,11 @@
-"""Tests for KillerTools plugins."""
+"""Tests for VoxTools plugins."""
 
 import pytest
 from pathlib import Path
-from killer_tools.core.plugin import PluginRegistry
-from killer_tools.plugins.files.plugin import FilesPlugin
-from killer_tools.plugins.crypto.plugin import CryptoPlugin
-from killer_tools.plugins.devtools.plugin import DevToolsPlugin
+from vox_tools.core.plugin import PluginRegistry
+from vox_tools.plugins.files.plugin import FilesPlugin
+from vox_tools.plugins.crypto.plugin import CryptoPlugin
+from vox_tools.plugins.devtools.plugin import DevToolsPlugin
 
 
 class TestPluginRegistry:

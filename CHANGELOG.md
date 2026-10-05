@@ -1,11 +1,33 @@
-# Changelog — KillerTools
+# Changelog — VoxTools
 
-All notable changes to KillerTools will be documented in this file.
+All notable changes to VoxTools (formerly KillerTools) will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.2.0] - 2026-10-05
+
+### Added
+- Brand rename to **VoxTools** with package `vox_tools`, CLI `voxtools`, config dir `~/.voxtools/`, and env prefix `VOXTOOLS_`
+- Legacy CLI alias `killertools` and legacy config fallback from `~/.killertools/config.json`
+- Documentation kit alignment: `docs_improvement` issue template; accurate configuration/CLI/usage docs
+- Roadmap rewritten against the shipped 0.2.x feature set
+
+### Changed
+- Bumped Typer to `^0.16.0` for Click 8.2+ compatibility (`voxtools --help` no longer crashes)
+- Cleaned `.gitignore` for a Python-focused project (removed unrelated Node/Next/Prisma noise)
+- MkDocs navigation now matches the documentation kit pages that exist in-repo
+- GitHub repository metadata/topics intended for the VoxTools identity
+
+### Fixed
+- CLI `--help` failure caused by Typer 0.9.x + Click 8.5 `make_metavar(ctx)` incompatibility
+- Docs that described non-existent `voxtools <plugin>` subcommands; documented Python plugin APIs instead
+
+### Removed
+- `DEVELOPMENT_GOALS.md` (outside the documentation kit; goals live in `ROADMAP.md`)
+- Stray `vox_tools/utilities/README.md` and unused `question` issue template
 
 ## [0.1.2] - 2026-03-12
 
@@ -59,7 +81,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Core Features
 - **Plugin Registry**: Dynamic plugin discovery and registration
-- **Settings Persistence**: Configuration saved to ~/.killertools/config.json
+- **Settings Persistence**: Configuration saved to `~/.killertools/config.json` (migrated to `~/.voxtools/` in 0.2.0)
 - **Theme Detection**: Automatic system theme detection (Windows/macOS/Linux)
 - **Logging System**: Rich console output with file logging
 - **Type Safety**: Full type hints with mypy support
@@ -77,25 +99,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Theme Support**: Light, dark, and system theme modes
 - **Cross-Platform**: Consistent experience across all platforms
 
-### Technical Implementation
-- **Poetry**: Modern Python dependency management
-- **PyQt6**: Cross-platform GUI framework
-- **Textual**: Modern terminal user interface
-- **Typer**: Modern CLI framework with Rich integration
-- **Pydantic**: Data validation and settings management
-- **Rich**: Beautiful terminal output and progress bars
-
-### Project Structure
-- **Modular Design**: Clean separation of concerns
-- **Plugin Architecture**: Easy to extend with new tools
-- **Type Safety**: Full type hints throughout
-- **Testing**: Comprehensive test suite with pytest
-- **Documentation**: MkDocs Material with comprehensive guides
-- **CI/CD**: GitHub Actions for testing and releases
-
 ---
 
-[Unreleased]: https://github.com/VoxHash/KillerTools/compare/v0.1.2...HEAD
-[0.1.2]: https://github.com/VoxHash/KillerTools/compare/v0.1.1...v0.1.2
-[0.1.1]: https://github.com/VoxHash/KillerTools/compare/v0.1.0...v0.1.1
-[0.1.0]: https://github.com/VoxHash/KillerTools/releases/tag/v0.1.0
+[Unreleased]: https://github.com/VoxHash/VoxTools/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/VoxHash/VoxTools/compare/v0.1.2...v0.2.0
+[0.1.2]: https://github.com/VoxHash/VoxTools/compare/v0.1.1...v0.1.2
+[0.1.1]: https://github.com/VoxHash/VoxTools/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/VoxHash/VoxTools/releases/tag/v0.1.0

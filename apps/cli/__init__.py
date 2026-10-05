@@ -1,1 +1,1 @@
-"""CLI application for KillerTools."""
+"""CLI application for VoxTools."""

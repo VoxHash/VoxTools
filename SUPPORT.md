@@ -1,15 +1,15 @@
 # Support
 
 ## Getting Help
-- **Documentation**: Check [docs/](docs/) and [full documentation](https://voxhash.github.io/KillerTools)
+- **Documentation**: Check [docs/](docs/) and [full documentation](https://voxhash.github.io/VoxTools)
 - **FAQ**: See [docs/faq.md](docs/faq.md)
 - **Issues**: Open an issue using the appropriate template
-- **Discussions**: Use [GitHub Discussions](https://github.com/VoxHash/KillerTools/discussions)
+- **Discussions**: Use [GitHub Discussions](https://github.com/VoxHash/VoxTools/discussions)
 
 ## Issue Templates
 - [Bug Report](.github/ISSUE_TEMPLATE/bug_report.md)
 - [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md)
-- [Question](.github/ISSUE_TEMPLATE/question.md)
+- [Docs Improvement](.github/ISSUE_TEMPLATE/docs_improvement.md)
 
 ## Contact
 - **Email**: contact@voxhash.dev

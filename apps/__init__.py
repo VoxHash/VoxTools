@@ -1,1 +1,1 @@
-"""Applications for KillerTools."""
+"""Applications for VoxTools."""

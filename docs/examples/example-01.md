@@ -1,47 +1,61 @@
 # Example 1: Basic Plugin Usage
 
-Learn how to use KillerTools plugins.
+Use VoxTools plugins from the CLI discovery path and Python APIs.
 
 ## List Plugins
 
 ```bash
-killertools list-plugins
+voxtools list-plugins
 ```
 
-## Use Files Plugin
+## Files plugin (hash a file)
 
 ```bash
-# Hash a file
-killertools files hash /path/to/file
+python - <<'PY'
+from pathlib import Path
+from vox_tools.plugins.files.plugin import FilesPlugin
 
-# Find duplicate files
-killertools files find-duplicates /path/to/directory
+plugin = FilesPlugin()
+print(plugin.hash_file(Path("README.md")))
+print(plugin.format_size(Path("README.md").stat().st_size))
+PY
 ```
 
-## Use Crypto Plugin
+## Crypto plugin
 
 ```bash
-# Generate UUID
-killertools crypto uuid
+python - <<'PY'
+from vox_tools.plugins.crypto.plugin import CryptoPlugin
 
-# Hash text
-killertools crypto hash "Hello, World!"
+plugin = CryptoPlugin()
+print(plugin.generate_uuid())
+print(plugin.hash_text("Hello, World!"))
+print(plugin.base64_encode("Hello, World!"))
+PY
 ```
 
-## Use DevTools Plugin
+## DevTools plugin
 
 ```bash
-# Format JSON file
-killertools devtools format-json file.json
+python - <<'PY'
+from pathlib import Path
+from vox_tools.plugins.devtools.plugin import DevToolsPlugin
 
-# Test regex pattern
-killertools devtools regex-test "\d+" "123abc456"
+plugin = DevToolsPlugin()
+print(plugin.test_regex(r"\d+", "123abc456"))
+readme = Path("README.md")
+if readme.exists():
+    # Validate JSON only when you have a JSON file:
+    sample = Path("/tmp/voxtools-sample.json")
+    sample.write_text('{"ok": true}')
+    print(plugin.validate_json(sample))
+PY
 ```
 
 ## Launch GUI
 
 ```bash
-killertools gui
+voxtools gui
 ```
 
 Then select a plugin from the sidebar.

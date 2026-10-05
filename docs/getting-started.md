@@ -1,57 +1,61 @@
-# Getting Started with KillerTools
+# Getting Started with VoxTools
 
-Welcome to KillerTools! This guide will help you get started.
+Welcome to VoxTools — a cross-platform Swiss-army toolkit for developers from VoxHash Technologies.
 
-## What is KillerTools?
+## What is VoxTools?
 
-KillerTools is a modern, cross-platform Swiss-army toolkit for developers and makers. It provides:
+VoxTools provides:
 
 - Multiple interfaces (CLI, TUI, GUI)
-- Plugin-based architecture
+- A plugin-based architecture
 - Cross-platform support
-- Professional developer tools
+- Developer utilities (files, crypto, DevTools, image)
 
 ## Installation
 
-See [Installation Guide](installation.md) for detailed instructions.
+See [Installation](installation.md).
 
 **Quick install:**
 ```bash
-pipx install killertools
+pipx install voxtools
 ```
 
 ## First Steps
 
 1. **Verify installation:**
    ```bash
-   killertools --help
+   voxtools --help
+   voxtools version
    ```
 
 2. **List available plugins:**
    ```bash
-   killertools list-plugins
+   voxtools list-plugins
    ```
 
-3. **Try a plugin:**
+3. **Try a plugin API:**
    ```bash
-   killertools files --help
-   killertools crypto --help
+   python - <<'PY'
+   from vox_tools.plugins.crypto.plugin import CryptoPlugin
+   print(CryptoPlugin().generate_uuid())
+   PY
    ```
 
-4. **Launch the GUI:**
+4. **Launch the GUI or TUI:**
    ```bash
-   killertools gui
+   voxtools gui
+   voxtools tui
    ```
 
 ## Next Steps
 
-- Read the [Quick Start Guide](quick-start.md)
-- Explore [Usage Examples](examples/)
-- Check the [CLI Reference](cli.md)
-- Learn about [Configuration](configuration.md)
+- [Quick Start](quick-start.md)
+- [Examples](examples/example-01.md)
+- [CLI Reference](cli.md)
+- [Configuration](configuration.md)
 
 ## Getting Help
 
 - [FAQ](faq.md)
 - [Troubleshooting](troubleshooting.md)
-- [Support](https://github.com/VoxHash/KillerTools/issues)
+- [Support](https://github.com/VoxHash/VoxTools/issues) · contact@voxhash.dev

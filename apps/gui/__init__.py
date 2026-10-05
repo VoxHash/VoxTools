@@ -1,1 +1,1 @@
-"""GUI application for KillerTools."""
+"""GUI application for VoxTools."""

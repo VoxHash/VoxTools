@@ -1,12 +1,12 @@
-# KillerTools — Documentation
+# VoxTools — Documentation
 
-Welcome to the KillerTools documentation!
+Welcome to the VoxTools documentation!
 
 ## Quick Links
-- [Getting Started](getting-started.md) - New to KillerTools? Start here
+- [Getting Started](getting-started.md) - New to VoxTools? Start here
 - [Quick Start](quick-start.md) - Get up and running in minutes
 - [Installation](installation.md) - Platform-specific installation guides
-- [Usage](usage.md) - How to use KillerTools
+- [Usage](usage.md) - How to use VoxTools
 - [Configuration](configuration.md) - Configuration options
 - [CLI](cli.md) - Command-line interface reference
 - [API](api.md) - API reference
@@ -21,4 +21,4 @@ Welcome to the KillerTools documentation!
 - **Development**: Architecture, plugin development
 - **Support**: Troubleshooting, FAQ
 
-For the full documentation website, visit [https://voxhash.github.io/KillerTools](https://voxhash.github.io/KillerTools).
+For the full documentation website, visit [https://voxhash.github.io/VoxTools](https://voxhash.github.io/VoxTools).

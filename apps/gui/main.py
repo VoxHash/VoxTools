@@ -1,4 +1,4 @@
-"""Main GUI application for KillerTools."""
+"""Main GUI application for VoxTools."""
 
 from __future__ import annotations
 
@@ -25,24 +25,24 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-from killer_tools import __version__
-from killer_tools.core.logging import setup_logging
-from killer_tools.core.plugin import registry
-from killer_tools.core.settings import Settings
-from killer_tools.core.theme import ThemeManager
+from vox_tools import __version__
+from vox_tools.core.logging import setup_logging
+from vox_tools.core.plugin import registry
+from vox_tools.core.settings import Settings
+from vox_tools.core.theme import ThemeManager
 
 
 class AboutDialog(QMessageBox):
-    """About dialog for KillerTools."""
+    """About dialog for VoxTools."""
 
     def __init__(self, parent: Optional[QWidget] = None) -> None:
         """Initialize the about dialog."""
         super().__init__(parent)
-        self.setWindowTitle("About KillerTools")
+        self.setWindowTitle("About VoxTools")
         self.setIcon(QMessageBox.Icon.Information)
         
         about_text = f"""
-        <h2>KillerTools v{__version__}</h2>
+        <h2>VoxTools v{__version__}</h2>
         <p>A modern, cross-platform Swiss-army toolkit for developers and makers</p>
         
         <h3>Features:</h3>
@@ -57,8 +57,8 @@ class AboutDialog(QMessageBox):
         
         <h3>Links:</h3>
         <p>
-        <a href="https://github.com/VoxHash/KillerTools">GitHub</a> |
-        <a href="https://voxhash.github.io/KillerTools">Documentation</a> |
+        <a href="https://github.com/VoxHash/VoxTools">GitHub</a> |
+        <a href="https://voxhash.github.io/VoxTools">Documentation</a> |
         <a href="https://twitter.com/VoxHash">Twitter</a> |
         <a href="https://linkedin.com/in/voxhash">LinkedIn</a> |
         <a href="https://t.me/VoxHash">Telegram</a>
@@ -101,7 +101,7 @@ class PluginWidget(QWidget):
 
 
 class MainWindow(QMainWindow):
-    """Main window for KillerTools GUI."""
+    """Main window for VoxTools GUI."""
 
     def __init__(self) -> None:
         """Initialize the main window."""
@@ -119,7 +119,7 @@ class MainWindow(QMainWindow):
 
     def setup_ui(self) -> None:
         """Set up the main UI."""
-        self.setWindowTitle(f"KillerTools v{__version__}")
+        self.setWindowTitle(f"VoxTools v{__version__}")
         self.setGeometry(100, 100, 1200, 800)
         
         # Central widget
@@ -172,14 +172,14 @@ class MainWindow(QMainWindow):
         welcome_layout = QVBoxLayout()
         welcome_widget.setLayout(welcome_layout)
         
-        welcome_label = QLabel("Welcome to KillerTools!")
+        welcome_label = QLabel("Welcome to VoxTools!")
         welcome_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         welcome_label.setStyleSheet("font-size: 24px; font-weight: bold; margin: 20px;")
         welcome_layout.addWidget(welcome_label)
         
         info_label = QLabel(
             "Select a plugin from the sidebar to get started.\n\n"
-            "KillerTools provides a comprehensive set of utilities for developers and makers, "
+            "VoxTools provides a comprehensive set of utilities for developers and makers, "
             "including file management, media processing, network tools, cryptography, and more."
         )
         info_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -319,7 +319,7 @@ class MainWindow(QMainWindow):
 def main() -> None:
     """Main entry point for GUI application."""
     app = QApplication(sys.argv)
-    app.setApplicationName("KillerTools")
+    app.setApplicationName("VoxTools")
     app.setApplicationVersion(__version__)
     app.setOrganizationName("VoxHash")
     

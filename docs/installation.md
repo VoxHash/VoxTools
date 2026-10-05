@@ -1,6 +1,6 @@
 # Installation
 
-Install KillerTools on your platform.
+Install VoxTools on your platform.
 
 ## Requirements
 
@@ -12,28 +12,28 @@ Install KillerTools on your platform.
 ### Using pipx (Recommended)
 
 ```bash
-pipx install killertools
+pipx install voxtools
 ```
 
 ### Using pip
 
 ```bash
-pip install killertools
+pip install voxtools
 ```
 
 ### Using Poetry (Development)
 
 ```bash
-git clone https://github.com/VoxHash/KillerTools.git
-cd KillerTools
+git clone https://github.com/VoxHash/VoxTools.git
+cd VoxTools
 poetry install
-poetry run killertools --help
+poetry run voxtools --help
 ```
 
 ## Verify Installation
 
 ```bash
-killertools --help
+voxtools --help
 ```
 
 ## Platform-Specific Notes

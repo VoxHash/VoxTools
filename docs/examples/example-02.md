@@ -1,41 +1,55 @@
-# Example 2: Advanced Usage
+# Example 2: Advanced Plugin APIs
 
-Advanced examples and use cases.
+Advanced plugin calls and configuration.
 
-## Batch Operations
+## Files: duplicates and sizing
 
 ```bash
-# Find and remove duplicate files
-killertools files find-duplicates /path/to/directory
+python - <<'PY'
+from pathlib import Path
+from vox_tools.plugins.files.plugin import FilesPlugin
 
-# Bulk rename files
-killertools files bulk-rename "old" "new"
+plugin = FilesPlugin()
+# Point at a directory that contains intentional duplicates for a real scan
+duplicates = plugin.find_duplicates(Path("."))
+print(f"duplicate groups: {len(duplicates)}")
+for digest, paths in list(duplicates.items())[:3]:
+    print(digest[:12], len(paths))
+PY
 ```
 
-## Crypto Operations
+## Crypto: HMAC and Base64
 
 ```bash
-# Generate HMAC
-killertools crypto hmac "message" "secret" "sha256"
+python - <<'PY'
+from vox_tools.plugins.crypto.plugin import CryptoPlugin
 
-# Base64 encode/decode
-killertools crypto base64-encode "Hello, World!"
-killertools crypto base64-decode "SGVsbG8sIFdvcmxkIQ=="
+plugin = CryptoPlugin()
+print(plugin.generate_hmac("message", "secret"))
+encoded = plugin.base64_encode("Hello, World!")
+print(encoded)
+print(plugin.base64_decode(encoded))
+PY
 ```
 
-## DevTools Operations
+## DevTools: JSON validation and badges
 
 ```bash
-# Format multiple files
-killertools devtools format-json file1.json file2.json
+python - <<'PY'
+from pathlib import Path
+from vox_tools.plugins.devtools.plugin import DevToolsPlugin
 
-# Validate JSON
-killertools devtools validate-json file.json
+plugin = DevToolsPlugin()
+sample = Path("/tmp/voxtools-valid.json")
+sample.write_text('{"project": "VoxTools"}')
+print(plugin.validate_json(sample))
+print(plugin.generate_readme_badges("VoxTools", "VoxHash")[:120], "...")
+PY
 ```
 
 ## Configuration
 
-Edit `~/.killertools/config.json`:
+Edit `~/.voxtools/config.json`:
 
 ```json
 {
@@ -49,3 +63,5 @@ Edit `~/.killertools/config.json`:
   }
 }
 ```
+
+Or set `VOXTOOLS_OPENAI_API_KEY` for the image plugin (requires `pip install 'voxtools[ai]'`).

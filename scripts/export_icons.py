@@ -14,7 +14,7 @@ except ImportError:
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from killer_tools import __version__
+from vox_tools import __version__
 
 
 def export_icons() -> None:
@@ -28,7 +28,7 @@ def export_icons() -> None:
         return
     
     print(f"Exporting icons from {svg_path}")
-    print(f"KillerTools v{__version__}")
+    print(f"VoxTools v{__version__}")
     
     # Icon sizes to generate
     sizes = [16, 32, 64, 128, 256, 512, 1024]

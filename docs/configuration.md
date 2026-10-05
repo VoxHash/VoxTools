@@ -1,10 +1,12 @@
 # Configuration
 
-Configure KillerTools to your preferences.
+Configure VoxTools to your preferences.
 
 ## Configuration File
 
-Configuration is stored in `~/.killertools/config.json`.
+Settings are stored in `~/.voxtools/config.json`.
+
+If that file is missing, VoxTools will also read a legacy `~/.killertools/config.json` from the previous KillerTools brand name. New saves always write to `~/.voxtools/`.
 
 ## Settings
 
@@ -20,9 +22,9 @@ Configuration is stored in `~/.killertools/config.json`.
 ```
 
 **Theme modes:**
-- `system` - Automatically detect OS theme
-- `light` - Force light theme
-- `dark` - Force dark theme
+- `system` — detect OS theme
+- `light` — force light theme
+- `dark` — force dark theme
 
 ### UI Settings
 ```json
@@ -51,13 +53,21 @@ Configuration is stored in `~/.killertools/config.json`.
 
 ## Environment Variables
 
-- `KILLERTOOLS_THEME_MODE` - Override theme mode
-- `OPENAI_API_KEY` - For AI/image plugins
-- `KILLERTOOLS_LOG_LEVEL` - Override log level
+All settings use the `VOXTOOLS_` prefix (via pydantic-settings). Common values:
+
+| Variable | Purpose |
+| --- | --- |
+| `VOXTOOLS_OPENAI_API_KEY` | OpenAI key for the image (and future AI) plugins |
+| `VOXTOOLS_IMGBB_API_KEY` | ImgBB upload key (optional) |
+| `VOXTOOLS_TELEGRAM_BOT_TOKEN` | Telegram bot token (optional) |
+| `VOXTOOLS_FFMPEG_PATH` | Path to an FFmpeg binary for media workflows |
+| `VOXTOOLS_THEME_MODE` | Override theme mode (`system` / `light` / `dark`) |
+
+System dependencies (not env vars): Python 3.11–3.13, optional FFmpeg for media, GUI display/Qt libs for `voxtools gui`.
 
 ## Plugin Settings
 
-Plugin-specific settings are stored in `plugin_settings`:
+Plugin-specific settings live under `plugin_settings`:
 
 ```json
 {

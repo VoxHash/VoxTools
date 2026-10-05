@@ -1,6 +1,6 @@
-# Contributing to KillerTools
+# Contributing to VoxTools
 
-Thanks for helping improve KillerTools!
+Thanks for helping improve VoxTools!
 
 ## Code of Conduct
 Please read and follow our [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
@@ -8,8 +8,8 @@ Please read and follow our [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 ## Development Setup
 ```bash
 # Clone
-git clone https://github.com/VoxHash/KillerTools.git
-cd KillerTools
+git clone https://github.com/VoxHash/VoxTools.git
+cd VoxTools
 
 # Install deps
 poetry install
@@ -29,10 +29,10 @@ poetry run pytest
 ## Code Quality
 Before committing, run:
 ```bash
-poetry run ruff check --fix killer_tools/ apps/ tests/
-poetry run black killer_tools/ apps/ tests/
-poetry run isort killer_tools/ apps/ tests/
-poetry run mypy killer_tools/ apps/
+poetry run ruff check --fix vox_tools/ apps/ tests/
+poetry run black vox_tools/ apps/ tests/
+poetry run isort vox_tools/ apps/ tests/
+poetry run mypy vox_tools/ apps/
 ```
 
 ## Pull Requests
@@ -48,4 +48,4 @@ See [docs/creating-plugins.md](docs/creating-plugins.md) for detailed plugin dev
 - Semantic Versioning
 - Update [CHANGELOG.md](CHANGELOG.md)
 
-For more details, see the full [Contributing Guide](https://voxhash.github.io/KillerTools/contributing/).
+For more details, see the full [Contributing Guide](https://voxhash.github.io/VoxTools/contributing/).

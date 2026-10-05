@@ -1,4 +1,4 @@
-"""Main TUI application for KillerTools."""
+"""Main TUI application for VoxTools."""
 
 from __future__ import annotations
 
@@ -8,9 +8,9 @@ from textual.reactive import reactive
 from textual.widgets import Button, Footer, Header, Static, Tree
 from textual.widgets.tree import TreeNode
 
-from killer_tools.core.plugin import registry
-from killer_tools.core.settings import Settings
-from killer_tools.core.theme import ThemeManager
+from vox_tools.core.plugin import registry
+from vox_tools.core.settings import Settings
+from vox_tools.core.theme import ThemeManager
 
 
 class PluginTile(Static):
@@ -30,8 +30,8 @@ class PluginTile(Static):
         yield Button("Run", id=f"run-{self.plugin_name}")
 
 
-class KillerToolsTUI(App):
-    """Main TUI application for KillerTools."""
+class VoxToolsTUI(App):
+    """Main TUI application for VoxTools."""
 
     CSS = """
     Screen {
@@ -113,7 +113,7 @@ class KillerToolsTUI(App):
                 yield Tree("Plugins", id="plugin-tree")
             
             with Container(classes="content"):
-                yield Static("Welcome to KillerTools TUI!", classes="welcome")
+                yield Static("Welcome to VoxTools TUI!", classes="welcome")
                 yield Container(id="plugin-grid", classes="plugin-grid")
         
         yield Footer()
@@ -170,7 +170,7 @@ class KillerToolsTUI(App):
     def action_help(self) -> None:
         """Show help dialog."""
         help_text = """
-KillerTools TUI Help
+VoxTools TUI Help
 
 Key Bindings:
 • q - Quit application
@@ -212,7 +212,7 @@ Navigation:
 
 def main() -> None:
     """Main entry point for TUI application."""
-    app = KillerToolsTUI()
+    app = VoxToolsTUI()
     app.run()
 
 
