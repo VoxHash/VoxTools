@@ -160,10 +160,13 @@ jobs:
     - name: Create release archive
       run: |
         mkdir -p release
-        cp dist/binaries/* release/
+        # macOS --windowed GUI builds produce a .app bundle (directory);
+        # plain `cp` without -R fails on that path.
+        cp -R dist/binaries/. release/
         if [ -d assets/icons ]; then
           cp assets/icons/*.png assets/icons/*.icns release/ 2>/dev/null || true
         fi
+        ls -la release
         cd release
         zip -r ../voxtools-${{ github.ref_name }}-macos.zip .
         cd ..
