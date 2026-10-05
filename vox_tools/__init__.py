@@ -1,6 +1,6 @@
 """VoxTools - A modern, cross-platform Swiss-army toolkit for developers and makers."""
 
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 __author__ = "Silas Renner (VoxHash)"
 __email__ = "contact@voxhash.dev"
 __license__ = "MIT"

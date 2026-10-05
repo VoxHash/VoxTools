@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-10-05
+
+### Changed
+- `.gitignore`: ignore Cursor indexing config (`.cursorindexingignore`)
+
+### Fixed
+- CI: stabilize Ubuntu and Windows runners (OpenGL/EGL system libs; ThemeManager and plugins tolerate missing PyQt6 EGL)
+- CI: install Poetry via `pip` so Windows runners resolve `poetry` on PATH
+
+### Notes
+- Git history retains two consecutive commits with the same subject (`fix: install Poetry via pip in CI for Windows PATH`). Trees differ: `31dfd72` applies the workflow fix; `5aa8ed1` only tweaks CHANGELOG wording. Left as-is (no force-push).
+
 ## [0.2.1] - 2026-10-05
 
 ### Fixed

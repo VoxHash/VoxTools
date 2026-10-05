@@ -4,7 +4,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "voxtools"
-version = "0.2.1"
+version = "0.2.2"
 description = "Cross-platform Swiss-army developer toolkit with CLI, TUI, GUI, and plugins"
 authors = ["Silas Renner (VoxHash) <contact@voxhash.dev>"]
 license = "MIT"
