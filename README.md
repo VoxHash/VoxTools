@@ -1,6 +1,7 @@
 # VoxTools
 
 [![CI](https://github.com/VoxHash/VoxTools/workflows/CI/badge.svg)](https://github.com/VoxHash/VoxTools/actions)
+[![PyPI](https://img.shields.io/pypi/v/voxtools)](https://pypi.org/project/voxtools/)
 [![License](https://img.shields.io/github/license/VoxHash/VoxTools)](LICENSE)
 [![Release](https://img.shields.io/github/v/release/VoxHash/VoxTools?sort=semver)](https://github.com/VoxHash/VoxTools/releases)
 [![Docs](https://img.shields.io/badge/docs-website-blue)](./docs/index.md)
